@@ -1,3 +1,9 @@
+Docker build dev
+[![Build Status](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fvshop%2Fv-console-dev)](https://vincentprivate.synology.me:112/job/vincent-services/job/vshop/view/v-console/job/v-console-dev/)
+
+Deploy dev
+[![Build Status](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fvshop%2Fv-console-dev-k8s)](https://vincentprivate.synology.me:112/job/vincent-services/job/vshop/view/v-console/job/v-console-dev-k8s/)
+
 # VConsole
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
