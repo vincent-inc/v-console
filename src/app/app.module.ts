@@ -12,6 +12,8 @@ import { SideDrawerComponent } from './side-drawer/side-drawer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NgDialogModule } from './shared/module/ng-dialog.module ';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/guards/auth.interceptor';
 
 @NgModule({
   declarations: [		
@@ -28,7 +30,11 @@ import { NgDialogModule } from './shared/module/ng-dialog.module ';
     NgComponentModule,
     NgDialogModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
