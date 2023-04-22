@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { SideDrawerComponent } from './side-drawer/side-drawer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { NgDialogModule } from './shared/module/ng-dialog.module ';
 
 @NgModule({
   declarations: [		
@@ -19,12 +20,13 @@ import { RegisterComponent } from './register/register.component';
     HomeComponent,
     SideDrawerComponent,
       LoginComponent,
-      RegisterComponent
+      RegisterComponent,
    ],
   imports: [
     NgEssentialModule,
     NgMaterialModule,
-    NgComponentModule
+    NgComponentModule,
+    NgDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
