@@ -14,15 +14,17 @@ import { RegisterComponent } from './register/register.component';
 import { NgDialogModule } from './shared/module/ng-dialog.module ';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/guards/auth.interceptor';
+import { RequestSenderComponent } from './request-sender/request-sender.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [			
     AppComponent,
     HeaderComponent,
     HomeComponent,
     SideDrawerComponent,
       LoginComponent,
       RegisterComponent,
+      RequestSenderComponent
    ],
   imports: [
     NgEssentialModule,

@@ -38,4 +38,12 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  healthCheck(): void {
+    this.authenticatorService.healthCheck().pipe(first()).subscribe(
+      res => {
+        console.log(res);
+      }
+    );
+  }
+
 }

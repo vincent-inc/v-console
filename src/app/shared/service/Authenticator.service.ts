@@ -17,6 +17,10 @@ export class AuthenticatorService {
 
   constructor(private httpClient: HttpClient, private router: Router, private settingService: SettingService) { }
 
+  healthCheck(): Observable<string> {
+    return this.httpClient.get<string>(`${this.settingService.getGatewayUrl()}/_status/healthz`);
+  }
+
   // Authentication
   login(user: {username: string, password: string}): Observable<Jwt>{
     const userFormData = new HttpParams()
