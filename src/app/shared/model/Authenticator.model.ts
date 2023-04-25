@@ -27,3 +27,11 @@ export interface UserRole {
     name:  string;
     level: number;
 }
+
+export interface Route {
+    id:     number;
+    path:   string;
+    method: string;
+    secure: boolean;
+    roles:  UserRole[];
+}

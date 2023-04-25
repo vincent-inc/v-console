@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RequestSenderComponent } from './request-sender/request-sender.component';
+import { RouteComponent } from './Authentication/route/route.component';
 
 const routes: Routes = [
   {
@@ -19,8 +20,25 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'request_sender',
-    component: RequestSenderComponent
+    path: 'tool',
+    children: [
+      {
+        path: 'request_sender',
+        component: RequestSenderComponent
+      }
+    ]
+    
+  },
+
+  // Authentication
+  {
+    path: 'authentication',
+    children: [
+      {
+        path: 'route',
+        component: RouteComponent
+      }
+    ]
   }
 ];
 

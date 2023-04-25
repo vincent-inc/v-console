@@ -73,11 +73,12 @@ export class AuthenticatorService {
     );
   }
 
-  isLoginCallWithReroute(navigate: string): void {
+  isLoginCallWithReroute(navigate?: string): void {
     this.isLogin().pipe(first()).subscribe(
       async res => {
         this.isLoginB = true;
-        this.router.navigate([navigate]);
+        if(navigate)
+          this.router.navigate([navigate]);
       },
       error => {
         this.isLoginB = false;

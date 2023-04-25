@@ -15,17 +15,19 @@ import { NgDialogModule } from './shared/module/ng-dialog.module ';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/guards/auth.interceptor';
 import { RequestSenderComponent } from './request-sender/request-sender.component';
+import { RouteComponent } from './Authentication/route/route.component';
 
 @NgModule({
-  declarations: [			
+  declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
     SideDrawerComponent,
-      LoginComponent,
-      RegisterComponent,
-      RequestSenderComponent
-   ],
+    LoginComponent,
+    RegisterComponent,
+    RequestSenderComponent,
+    RouteComponent
+  ],
   imports: [
     NgEssentialModule,
     NgMaterialModule,
