@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void 
   {
+    this.authenticatorService.isLoginCallWithReroute("/home");
     this.loginForm = this.fb.group(
       {
         username: ['', [Validators.required]],
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   {
     this.authenticatorService.login(this.loginForm.value).pipe(first()).subscribe(
       async res => {
-        await this.authenticatorService.autoUpdateUser(); 
+        await this.authenticatorService.autoUpdateUserWithJwt(res.jwt); 
         this.router.navigate(['home'])
       },
       error => {this.error = 'invalid or wrong username or password'}

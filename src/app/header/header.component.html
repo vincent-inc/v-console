@@ -12,5 +12,6 @@
   <button mat-icon-button aria-label="Example icon-button with share icon">
     <mat-icon>share</mat-icon>
   </button>
-  <span style="cursor: pointer;" routerLink="login">Login</span>
+  <span *ngIf="!authenticatorService.isLoginB" style="cursor: pointer;" routerLink="login">Login</span>
+  <span *ngIf="authenticatorService.isLoginB" style="cursor: pointer;" (click)="authenticatorService.logout()">Logout</span>
 </mat-toolbar>
