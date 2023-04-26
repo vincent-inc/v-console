@@ -61,6 +61,11 @@ export class RouteComponent implements OnInit {
     this.path = route;
   }
 
+  addNewRole(userRoles: UserRole[]): void {
+    const random = Math.floor(Math.random() * this.userRoles.length);
+    userRoles.push(this.userRoles[random]);
+  }
+
   goBackRoute(): void {
     this.path = this.path.substring(0, this.path.lastIndexOf("/"));
   }
