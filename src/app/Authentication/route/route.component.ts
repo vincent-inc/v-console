@@ -48,7 +48,7 @@ export class RouteComponent implements OnInit {
     })
     return filterRoutes;
   }
-
+  
   getRoutes(): Route[] {
     let filterRoutes: Route[] = [];
     filterRoutes = this.routes.filter((r) => {
@@ -61,9 +61,18 @@ export class RouteComponent implements OnInit {
     this.path = route;
   }
 
-  addNewRole(userRoles: UserRole[]): void {
-    const random = Math.floor(Math.random() * this.userRoles.length);
-    userRoles.push(this.userRoles[random]);
+  editRoute(route: Route): void {
+    for(let i = 0; i < this.routes.length; i++) {
+      if(this.routes[i].id === route.id)
+      {
+        this.routes[i] = route;
+        break;
+      }
+    }
+  }
+
+  deleteRoute(route: Route): void {
+    this.routes = this.routes.filter(e => e.id === route.id);
   }
 
   goBackRoute(): void {

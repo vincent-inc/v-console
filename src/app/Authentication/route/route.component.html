@@ -27,78 +27,16 @@
         <div mat-subheader>Current Path</div>
         <ul *ngFor="let route of getExactRoutes()">
           <li>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{route.method}} {{route.path}}
-                </mat-panel-title>
-                <mat-panel-description>
-                  secure: {{route.secure}}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-                <ul>
-                  <li>
-                    <app-mat-form-field-input
-                      [value]="route.id"
-                      (valueOutput)="route.id = +$event"
-                      defaultType="number"
-                      label="ID"
-                      [required]="true"
-                      [disable]="true"
-                      styleWidth="100%"
-                    ></app-mat-form-field-input>
-                  </li>
-                  <li>
-                    <mat-form-field style="width: 100%;" appearance="fill">
-                      <mat-label>Method</mat-label>
-                      <mat-select [(ngModel)]="route.method" required>
-                        <mat-option value="GET">GET</mat-option>
-                        <mat-option value="POST">POST</mat-option>
-                        <mat-option value="PUT">PUT</mat-option>
-                        <mat-option value="PATCH">PATCH</mat-option>
-                        <mat-option value="DELETE">DELETE</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </li>
-                  <li>
-                    <app-mat-form-field-input
-                      [value]="route.path"
-                      (valueOutput)="route.path = $event.toString()"
-                      label="Path"
-                      [required]="true"
-                      styleWidth="100%"
-                    ></app-mat-form-field-input>
-                  </li>
-                  <li>
-                    <mat-form-field style="width: 100%;" appearance="fill">
-                      <mat-label>Secure</mat-label>
-                      <mat-select [(ngModel)]="route.secure" required>
-                        <mat-option [value]="true">TRUE</mat-option>
-                        <mat-option [value]="false">FALSE</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </li>
-                  <li *ngFor="let role of route.roles">
-                    <mat-form-field style="width: 100%;" appearance="fill">
-                      <mat-label>Role</mat-label>
-                      <mat-select [(ngModel)]="role.id" required>
-                        <div *ngFor="let r of userRoles">
-                          <mat-option [value]="r.id">{{r.name}}</mat-option>
-                        </div>
-                      </mat-select>
-                    </mat-form-field>
-                  </li>
-                  <li *ngIf="route.roles.length < userRoles.length">
-                    <button mat-raised-button color="accent" (click)="addNewRole(route.roles)">New Role</button>
-                  </li>
-                  <li>
-                    <button mat-raised-button color="primary" style="width: 50%;">Save</button>
-                    <button mat-raised-button color="warn" style="width: 50%;">Reset</button>
-                  </li>
-                </ul>
-            </mat-expansion-panel>
+            <app-route-panel
+            [route]="route"
+            [userRoles]="userRoles"
+            (editEvent)="editRoute($event)"
+            (deleteEvent)="deleteRoute($event)"
+            ></app-route-panel>
           </li>
         </ul>
+        <br>
+        <button mat-raised-button color="primary" style="width: 100%;">Add Path</button>
       </mat-list>
     </li>
   </ul>

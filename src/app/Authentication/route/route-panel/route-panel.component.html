@@ -1,0 +1,73 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{routeCopy.method}} {{routeCopy.path}}
+    </mat-panel-title>
+    <mat-panel-description>
+      secure: {{routeCopy.secure}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+    <ul>
+      <li>
+        <app-mat-form-field-input
+          [value]="routeCopy.id"
+          (valueOutput)="routeCopy.id = +$event"
+          defaultType="number"
+          label="ID"
+          [required]="true"
+          [disable]="true"
+          styleWidth="100%"
+        ></app-mat-form-field-input>
+      </li>
+      <li>
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>Method</mat-label>
+          <mat-select [(ngModel)]="routeCopy.method" required>
+            <mat-option value="GET">GET</mat-option>
+            <mat-option value="POST">POST</mat-option>
+            <mat-option value="PUT">PUT</mat-option>
+            <mat-option value="PATCH">PATCH</mat-option>
+            <mat-option value="DELETE">DELETE</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </li>
+      <li>
+        <app-mat-form-field-input
+          [value]="routeCopy.path"
+          (valueOutput)="routeCopy.path = $event.toString()"
+          label="Path"
+          [required]="true"
+          styleWidth="100%"
+        ></app-mat-form-field-input>
+      </li>
+      <li>
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>Secure</mat-label>
+          <mat-select [(ngModel)]="routeCopy.secure" required>
+            <mat-option [value]="true">TRUE</mat-option>
+            <mat-option [value]="false">FALSE</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </li>
+      <li *ngFor="let role of routeCopy.roles">
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>Role</mat-label>
+          <mat-select [(ngModel)]="role.id" required>
+            <div *ngFor="let r of userRoles">
+              <mat-option [value]="r.id">{{r.name}}</mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+      </li>
+      <li *ngIf="routeCopy.roles.length < userRoles.length">
+        <button mat-raised-button color="accent" (click)="addNewRole(routeCopy.roles)">New Role</button>
+      </li>
+      <hr>
+      <li>
+        <button mat-raised-button color="primary" style="width: 50%;" [disabled]="!isChange()" (click)="save()">Save</button>
+        <button mat-raised-button color="warn" style="width: 50%;" [disabled]="!isChange()" (click)="reset()">Reset</button>
+      </li>
+      <hr>
+      <li><button mat-raised-button color="warn" (click)="remove()">Delete</button></li>
+    </ul>
+</mat-expansion-panel>

@@ -123,4 +123,24 @@ export class AuthenticatorService {
   public getAllRoutes(): Observable<Route[]> {
     return this.httpClient.get<Route[]>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes`);
   }
+
+  public getRoutes(id: number): Observable<Route> {
+    return this.httpClient.get<Route>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes/${id}`);
+  }
+
+  public postRoutes(route: Route): Observable<Route> {
+    return this.httpClient.post<Route>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes`, route);
+  }
+
+  public putRoutes(route: Route): Observable<Route> {
+    return this.httpClient.put<Route>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes/${route.id}`, route);
+  }
+
+  public patchRoutes(route: Route): Observable<Route> {
+    return this.httpClient.patch<Route>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes/${route.id}`, route);
+  }
+
+  public deleteRoutes(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes/${id}`);
+  }
 }

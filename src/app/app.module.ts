@@ -16,6 +16,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/guards/auth.interceptor';
 import { RequestSenderComponent } from './request-sender/request-sender.component';
 import { RouteComponent } from './Authentication/route/route.component';
+import { RoutePanelComponent } from './Authentication/route/route-panel/route-panel.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RouteComponent } from './Authentication/route/route.component';
     LoginComponent,
     RegisterComponent,
     RequestSenderComponent,
-    RouteComponent
+    RouteComponent,
+    RoutePanelComponent
   ],
   imports: [
     NgEssentialModule,
