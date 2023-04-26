@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Jwt, User } from '../model/Authenticator.model';
+import { Jwt, Route, User, UserRole } from '../model/Authenticator.model';
 import { SettingService } from './Setting.service';
 import { Observable, first, interval } from 'rxjs';
 
@@ -113,5 +113,14 @@ export class AuthenticatorService {
   // USERs
   public getCurrentLoginUser(): Observable<User> {
     return this.httpClient.get<User>(`${this.settingService.getGatewayUrl()}/${this.prefix}/users`);
+  }
+
+  public getAllRoles(): Observable<UserRole[]> {
+    return this.httpClient.get<UserRole[]>(`${this.settingService.getGatewayUrl()}/${this.prefix}/roles`);
+  }
+
+  //Routes
+  public getAllRoutes(): Observable<Route[]> {
+    return this.httpClient.get<Route[]>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes`);
   }
 }

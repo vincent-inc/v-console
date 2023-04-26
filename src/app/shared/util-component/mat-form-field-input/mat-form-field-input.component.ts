@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance, MatFormFieldDefaultOptions } from '@angular/material/form-field';
 
@@ -12,12 +12,17 @@ import { MatFormFieldAppearance, MatFormFieldDefaultOptions } from '@angular/mat
 })
 export class MatFormFieldInputComponent implements OnInit
 {
-  
   @Input()
-  value: string = '';
+  value: string | number = '';
 
   @Output()
-  valueOutput: EventEmitter<string> = new EventEmitter();
+  valueOutput: EventEmitter<string | number> = new EventEmitter();
+
+  @Output()
+  validValueOutput: EventEmitter<boolean> = new EventEmitter();
+
+  @Input()
+  validatorFn: Function = () => "";
 
   @Input()
   placeholder: string = '';
@@ -60,7 +65,7 @@ export class MatFormFieldInputComponent implements OnInit
 
   //input copy
   @Input()
-  copyDisplayMessage: string = this.value;
+  copyDisplayMessage: string = this.value.toString();
 
   //switch
   @Input()
@@ -78,6 +83,14 @@ export class MatFormFieldInputComponent implements OnInit
   @Input()
   offIcon: string = 'visibility_off';
 
+  //case of number
+
+  @Input()
+  min: string = '';
+
+  @Input()
+  max: string = '';
+
   constructor() { }
 
   ngOnInit() {
@@ -88,9 +101,17 @@ export class MatFormFieldInputComponent implements OnInit
     this.valueOutput.emit(this.value);
   }
 
+  emitValidValue(): void
+  {
+    this.validValueOutput.emit(this.isValidValue());
+  }
+
   clear(): void
   {
-    this.value = '';
+    if(this.defaultType === 'number')
+      this.value = 0;
+    else
+      this.value = '';
     this.valueOutput.emit(this.value);
   }
 
@@ -141,5 +162,19 @@ export class MatFormFieldInputComponent implements OnInit
   {
     window.open(link);
   }
-  
+
+  getValidatorMessage(): string {
+    return this.validatorFn(this.value);
+  }
+
+  isValidValue(): boolean {
+    
+    if(this.required && this.value === '')
+      return false;
+
+    if(this.validatorFn)
+      return !this.getValidatorMessage();
+
+    return true;
+  }
 }

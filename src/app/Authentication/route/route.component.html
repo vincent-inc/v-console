@@ -1,6 +1,96 @@
 <div class="margin-center">
   <h1 class="text-center">Routing</h1>
   <ul>
-    <li>1</li>
+    <li>
+      <button mat-fab color="primary" (click)="goBackRoute()">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+      <app-mat-form-field-input
+      [value]="path"
+      (valueOutput)="path = $event.toString()"
+      (validValueOutput)="validPath = $event"
+      [styleWidth]='"90%"'
+      label="Path"
+      [required]="true"
+      [validatorFn]="validatorFn"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <mat-list>
+        <div mat-subheader>Child Path</div>
+        <mat-list-item *ngFor="let route of getRoutes()">
+          <mat-icon matListItemIcon>http</mat-icon>
+          <div matListItemTitle style="cursor: pointer;" (click)="moveToRoute(route.path)">{{route.path}}</div>
+          <div matListItemLine>{{route.path}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader>Current Path</div>
+        <ul *ngFor="let route of getExactRoutes()">
+          <li>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{route.method}} {{route.path}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  secure: {{route.secure}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                <ul>
+                  <li>
+                    <app-mat-form-field-input
+                      [value]="route.id"
+                      (valueOutput)="route.id = +$event"
+                      defaultType="number"
+                      label="ID"
+                      [required]="true"
+                      [disable]="true"
+                    ></app-mat-form-field-input>
+                  </li>
+                  <li>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Method</mat-label>
+                      <mat-select [(ngModel)]="route.method" required>
+                        <mat-option value="GET">GET</mat-option>
+                        <mat-option value="POST">POST</mat-option>
+                        <mat-option value="PUT">PUT</mat-option>
+                        <mat-option value="PATCH">PATCH</mat-option>
+                        <mat-option value="DELETE">DELETE</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </li>
+                  <li>
+                    <app-mat-form-field-input
+                      [value]="route.path"
+                      (valueOutput)="route.path = $event.toString()"
+                      label="Path"
+                      [required]="true"
+                    ></app-mat-form-field-input>
+                  </li>
+                  <li>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Secure</mat-label>
+                      <mat-select [(ngModel)]="route.secure" required>
+                        <mat-option [value]="true">TRUE</mat-option>
+                        <mat-option [value]="false">FALSE</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </li>
+                  <li>
+                    <app-mat-form-field-input
+                      [value]="route.roles.length"
+                      (valueOutput)="route.roles.length = +$event"
+                      label="Role Length"
+                      [required]="true"
+                      defaultType="number"
+                      min="0"
+                    ></app-mat-form-field-input>
+                  </li>
+                </ul>
+            </mat-expansion-panel>
+          </li>
+        </ul>
+      </mat-list>
+    </li>
   </ul>
 </div>

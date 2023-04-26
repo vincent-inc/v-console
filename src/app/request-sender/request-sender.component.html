@@ -13,7 +13,7 @@
     </mat-form-field>
     <app-mat-form-field-input
     label="URL"
-    [value]="url" (valueOutput)="url = $event">
+    [value]="url" (valueOutput)="url = $event.toString()">
     </app-mat-form-field-input>
     <button mat-raised-button color="primary">Send</button>
   </li>
