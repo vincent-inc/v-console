@@ -10,7 +10,7 @@
     <ul>
       <li>
         <app-mat-form-field-input
-          [value]="routeCopy.id"
+          [value]="routeCopy.id!"
           (valueOutput)="routeCopy.id = +$event"
           defaultType="number"
           label="ID"
@@ -49,13 +49,14 @@
           </mat-select>
         </mat-form-field>
       </li>
-      <li *ngFor="let role of routeCopy.roles">
+      <li *ngFor="let role of routeCopy.roles; let i = index">
         <mat-form-field style="width: 100%;" appearance="fill">
           <mat-label>Role</mat-label>
           <mat-select [(ngModel)]="role.id" required>
             <div *ngFor="let r of userRoles">
               <mat-option [value]="r.id">{{r.name}}</mat-option>
             </div>
+            <mat-option (click)="removeRole(i)">Remove</mat-option>
           </mat-select>
         </mat-form-field>
       </li>

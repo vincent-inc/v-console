@@ -1,6 +1,8 @@
 <div class="margin-center">
   <h1 class="text-center">Routing</h1>
   <ul>
+    <li><button mat-raised-button color="primary" (click)="updateRoutes()">Re-fetch route</button></li>
+    <hr>
     <li>
       <button mat-fab color="primary" (click)="goBackRoute()">
         <mat-icon>keyboard_backspace</mat-icon>
@@ -18,10 +20,10 @@
     <li>
       <mat-list>
         <div mat-subheader>Child Path</div>
-        <mat-list-item *ngFor="let route of getRoutes()">
+        <mat-list-item *ngFor="let route of getRecommendPath()">
           <mat-icon matListItemIcon>http</mat-icon>
-          <div matListItemTitle style="cursor: pointer;" (click)="moveToRoute(route.path)">{{route.path}}</div>
-          <div matListItemLine>{{route.path}}</div>
+          <div matListItemTitle style="cursor: pointer;" (click)="moveToRoute(route.fullPath)">{{route.path}}</div>
+          <div matListItemLine>{{route.fullPath}}</div>
         </mat-list-item>
         <mat-divider></mat-divider>
         <div mat-subheader>Current Path</div>
@@ -36,7 +38,7 @@
           </li>
         </ul>
         <br>
-        <button mat-raised-button color="primary" style="width: 100%;">Add Path</button>
+        <button mat-raised-button color="primary" style="width: 100%;" (click)="addNewRoute()">Add Path</button>
       </mat-list>
     </li>
   </ul>

@@ -23,13 +23,13 @@ export interface UserProfile {
 }
 
 export interface UserRole {
-    id:    number;
+    id?:    number;
     name:  string;
     level: number;
 }
 
 export interface Route {
-    id:     number;
+    id?:     number;
     path:   string;
     method: string;
     secure: boolean;
