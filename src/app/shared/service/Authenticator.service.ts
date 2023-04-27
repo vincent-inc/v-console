@@ -17,7 +17,7 @@ export class AuthenticatorService {
   private prefix = "authenticator"
 
   constructor(private httpClient: HttpClient, private router: Router, private settingService: SettingService) { 
-    this.jwt = sessionStorage.getItem("jwt");
+    this.jwt = localStorage.getItem("jwt");
     setInterval(() => {
       this.isLoginCall();
     }, 120000); //2 mins
@@ -53,7 +53,7 @@ export class AuthenticatorService {
   async autoUpdateUserWithJwt(jwt: string): Promise<void>
   {
     this.jwt = jwt;
-    sessionStorage.setItem("jwt", jwt);
+    localStorage.setItem("jwt", jwt);
     await this.autoUpdateUser();
   }
 
@@ -92,7 +92,7 @@ export class AuthenticatorService {
   }
 
   logout(): void {
-    sessionStorage.removeItem("jwt");
+    localStorage.removeItem("jwt");
     this.isLoginB = false;
     this.httpClient.get<void>(`${this.settingService.getGatewayUrl()}/${this.prefix}/auth/logout`).pipe(first()).subscribe(
       res => {},
