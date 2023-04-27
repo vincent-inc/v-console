@@ -13,6 +13,9 @@ export class CopyToClipboardUtilComponent implements OnInit {
   @Input()
   displayMessage: string = '';
 
+  @Input()
+  matIcon: string = 'file_copy'
+
   constructor() { }
 
   ngOnInit() {

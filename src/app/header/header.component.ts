@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { AuthenticatorService } from '../shared/service/Authenticator.service';
 import { first } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
   @Input()
   drawer?: MatDrawer;
 
-  constructor(public authenticatorService: AuthenticatorService) { }
+  constructor(public authenticatorService: AuthenticatorService, public router: Router) { }
 
   ngOnInit() {
     this.authenticatorService.isLoginCallWithReroute();
@@ -21,6 +22,10 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authenticatorService.logout();
+  }
+
+  getURL(): string {
+    return document.URL;
   }
 
 }
