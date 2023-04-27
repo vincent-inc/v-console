@@ -5,6 +5,7 @@
   <li><button *ngIf="!authenticatorService.isLoginB" mat-flat-button [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</button></li>
   <li><button *ngIf="authenticatorService.isLoginB" mat-flat-button (click)="authenticatorService.logout()" >Logout</button></li>
   <li><button mat-flat-button [routerLink]="['/register']" routerLinkActive="router-link-active" >Register</button></li>
+  <li><button mat-flat-button [routerLink]="['/setting']" routerLinkActive="router-link-active" >Setting</button></li>
   <br>
   <li><h1>Tool</h1></li>
   <hr>
