@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticatorService } from './shared/service/Authenticator.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,6 @@ import { AuthenticatorService } from './shared/service/Authenticator.service';
 export class AppComponent {
   title = 'v-console';
 
-  constructor() {}
+  constructor(private router: Router) {}
+
 }

@@ -19,6 +19,20 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent
   },
+
+  // iframe
+
+  {
+    path: 'iframe',
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent
+      }
+    ]
+  },
+
+  // TOOL
   {
     path: 'tool',
     children: [

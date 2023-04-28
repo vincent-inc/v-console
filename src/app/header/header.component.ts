@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   @Input()
   drawer?: MatDrawer;
 
-  constructor(public authenticatorService: AuthenticatorService, public router: Router) { }
+  constructor(public authenticatorService: AuthenticatorService, private router: Router) { }
 
   ngOnInit() {
     this.authenticatorService.isLoginCallWithReroute();
@@ -27,5 +27,5 @@ export class HeaderComponent implements OnInit {
   getURL(): string {
     return document.URL;
   }
-
+  
 }
