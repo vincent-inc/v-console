@@ -6,9 +6,9 @@ metadata:
     app: v-console-dev
 spec:
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.105
+  loadBalancerIP: 10.24.24.105
   externalIPs:
-  - 192.168.1.105
+  - 10.24.24.105
   ports:
   - name: http
     port: 83 #local out port
