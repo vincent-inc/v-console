@@ -58,7 +58,7 @@ export class RouteComponent implements OnInit {
   getFilterRoutes(): Route[] {
     let filterRoutes: Route[];
     filterRoutes = this.routes.filter((r) => {
-      return r.path.includes(this.path) && r.path !== this.path;
+      return r.path!.includes(this.path) && r.path !== this.path;
     })
     return filterRoutes;
   }
@@ -68,7 +68,7 @@ export class RouteComponent implements OnInit {
     let recommendPaths: RecommendPath[] = [];
     let numberOfDash: number = this.path.split('/').length - 1;
     filterRoutes.forEach(e => {
-      let splits = e.path.split('/');
+      let splits = e.path!.split('/');
       while(splits.length > numberOfDash + 1)
         splits.pop();
       let rPath = splits[splits.length - 1];

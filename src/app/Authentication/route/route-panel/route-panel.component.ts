@@ -68,6 +68,6 @@ export class RoutePanelComponent implements OnInit {
   }
 
   removeRole(i: number): void {
-    this.routeCopy.roles.splice(i, 1);
+    this.routeCopy.roles!.splice(i, 1);
   }
 }

@@ -33,7 +33,7 @@
       </li>
       <li>
         <app-mat-form-field-input
-          [value]="routeCopy.path"
+          [value]="routeCopy.path!.toString()"
           (valueOutput)="routeCopy.path = $event.toString()"
           label="Path"
           [required]="true"
@@ -60,8 +60,8 @@
           </mat-select>
         </mat-form-field>
       </li>
-      <li *ngIf="routeCopy.roles.length < userRoles.length">
-        <button mat-raised-button color="accent" (click)="addNewRole(routeCopy.roles)">New Role</button>
+      <li *ngIf="routeCopy.roles!.length < userRoles.length">
+        <button mat-raised-button color="accent" (click)="addNewRole(routeCopy.roles!)">New Role</button>
       </li>
       <hr>
       <li>
