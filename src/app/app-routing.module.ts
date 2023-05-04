@@ -5,6 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RequestSenderComponent } from './request-sender/request-sender.component';
 import { RouteComponent } from './Authentication/route/route.component';
+import { UserRoleComponent } from './Authentication/user-role/user-role.component';
+import { UsersComponent } from './Authentication/users/users.component';
 
 const routes: Routes = [
   {
@@ -51,6 +53,14 @@ const routes: Routes = [
       {
         path: 'route',
         component: RouteComponent
+      },
+      {
+        path: 'users',
+        component: UsersComponent
+      },
+      {
+        path: 'user_role',
+        component: UserRoleComponent
       }
     ]
   }

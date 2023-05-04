@@ -17,6 +17,8 @@ import { AuthInterceptor } from './shared/guards/auth.interceptor';
 import { RequestSenderComponent } from './request-sender/request-sender.component';
 import { RouteComponent } from './Authentication/route/route.component';
 import { RoutePanelComponent } from './Authentication/route/route-panel/route-panel.component';
+import { UserRoleComponent } from './Authentication/user-role/user-role.component';
+import { UsersComponent } from './Authentication/users/users.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { RoutePanelComponent } from './Authentication/route/route-panel/route-pa
     RegisterComponent,
     RequestSenderComponent,
     RouteComponent,
-    RoutePanelComponent
+    RoutePanelComponent,
+    UsersComponent,
+    UserRoleComponent
   ],
   imports: [
     NgEssentialModule,
