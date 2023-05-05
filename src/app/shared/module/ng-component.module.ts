@@ -7,6 +7,7 @@ import { NgMaterialModule } from './ng-material.module';
 import { CopyToClipboardDirective } from '../directive/copy-to-clipboard.directive';
 import { FilterNamePipe } from '../pipes/filter-name.pipe';
 import { FilterNameReversePipe } from '../pipes/filter-name-reverse.pipe';
+import { MatTableComponent } from '../util-component/mat-table/mat-table.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FilterNameReversePipe } from '../pipes/filter-name-reverse.pipe';
     MatFormFieldInputComponent,
     CopyToClipboardDirective,
     FilterNamePipe,
-    FilterNameReversePipe
+    FilterNameReversePipe,
+    MatTableComponent
   ],
   imports: [
     NgMaterialModule,
@@ -27,7 +29,8 @@ import { FilterNameReversePipe } from '../pipes/filter-name-reverse.pipe';
     MatFormFieldInputComponent,
     CopyToClipboardDirective,
     FilterNamePipe,
-    FilterNameReversePipe
+    FilterNameReversePipe,
+    MatTableComponent
   ]
 })
 export class NgComponentModule { }

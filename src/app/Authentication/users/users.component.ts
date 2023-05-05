@@ -13,7 +13,7 @@ import { AuthenticatorService } from 'src/app/shared/service/Authenticator.servi
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, AfterViewInit  {
-
+  
   userData: UserTable[] = [];
   displayedColumns: string[] = ['id', 'username', 'email', 'enabled', 'userRoles'];
   dataSource = new MatTableDataSource(this.userData);
