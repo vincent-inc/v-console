@@ -130,7 +130,8 @@ export class RouteComponent implements OnInit {
     if(this.path.charAt(this.path.length - 1) === '/')
       this.path = this.path.substring(0, this.path.lastIndexOf("/"));
     
-    this.path = this.path.substring(0, this.path.lastIndexOf("/"));
+    this.path = this.path.substring(0, this.path.lastIndexOf("/")) + '/';
+
     if(this.path === '')
       this.path = '/';
   }
