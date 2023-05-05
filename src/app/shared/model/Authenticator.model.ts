@@ -1,3 +1,5 @@
+import { MatTableT } from "./Mat.model";
+
 export interface Jwt {
     jwt?: string;
 }
@@ -38,12 +40,20 @@ export interface Route {
     roles?:  UserRole[];
 }
 
-export interface UserTable
+export default class UserTable implements MatTableT
 {
     id?:                   number;
-    username:              string;
-    email:                 string;
-    enable:                boolean;
-    userRoles:             string;
+    username?:              string;
+    email?:                 string;
+    enable?:                boolean;
+    userRoles?:             string;
+
+    constructor(id: number, username: string, email: string, enable: boolean, userRoles: string) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.enable = enable;
+        this.userRoles = userRoles;
+    }
 }
 
