@@ -8,6 +8,7 @@ export interface User {
     password?:    string;
     userProfile?: UserProfile;
     userRoles?:   UserRole[];
+    enable:       boolean;
 }
 
 export interface UserProfile {
@@ -36,3 +37,13 @@ export interface Route {
     secure?: boolean;
     roles?:  UserRole[];
 }
+
+export interface UserTable
+{
+    id?:                   number;
+    username:              string;
+    email:                 string;
+    enable:                boolean;
+    userRoles:             string;
+}
+

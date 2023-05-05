@@ -134,7 +134,7 @@ export class AuthenticatorService {
   }
 
   public getAllUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.settingService.getGatewayUrl()}/${this.prefix}/users`);
+    return this.httpClient.get<User[]>(`${this.settingService.getGatewayUrl()}/${this.prefix}/users/all`);
   }
 
   public getUsers(id: number): Observable<User> {
