@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { first } from 'rxjs';
-import UserTable, { User, UserRole } from 'src/app/shared/model/Authenticator.model';
+import UserRow, { User, UserRole } from 'src/app/shared/model/Authenticator.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { AuthenticatorService } from 'src/app/shared/service/Authenticator.servi
 })
 export class UsersComponent implements OnInit  {
   
-  userData: UserTable[] = [];
+  userRows: UserRow[] = [];
 
   constructor(
     private authenticatorService: AuthenticatorService,
@@ -28,16 +28,16 @@ export class UsersComponent implements OnInit  {
   {
     this.authenticatorService.getAllUsers().pipe(first()).subscribe(
       res => {
-      this.userData = [];
+      this.userRows = [];
       res.forEach((u) => {
-        this.userData.push(this.convertUserData(u));
+        this.userRows.push(this.convertUserData(u));
       })
     });
   }
 
-  convertUserData(user: User): UserTable
+  convertUserData(user: User): UserRow
   {
-    let userTable: UserTable = {
+    let userTable: UserRow = {
       id:                    user.id,
       username:              user.username!,
       enable:                user.enable,
@@ -78,7 +78,7 @@ export class UsersComponent implements OnInit  {
     // );
   }
   
-  editUser(row: UserTable)
+  editUser(row: UserRow)
   {
     // let dialog = this.matDialog.open(UserDetailDialog, {data: {userID: row.id}});
 

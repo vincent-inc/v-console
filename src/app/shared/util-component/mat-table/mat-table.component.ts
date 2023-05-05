@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatTableT } from '../../model/Mat.model';
+import { MatRow } from '../../model/Mat.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
@@ -15,11 +15,22 @@ export class MatTableComponent implements OnInit, OnChanges {
   filterDisplay: number = 0;
 
   @Input()
-  matTableT: MatTableT[] = [];
+  matRows: MatRow[] = [];
+
+  @Input()
+  pagination: number[] = [5, 10, 25, 100];
+
+  @Input()
+  displayFilter: boolean = false;
+
+  @Input()
+  displayPagination: boolean = false;
 
   displayedColumns: string[] = [];
   
-  dataSource = new MatTableDataSource(this.matTableT);
+  dataSource = new MatTableDataSource(this.matRows);
+
+  filter?: string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -36,11 +47,12 @@ export class MatTableComponent implements OnInit, OnChanges {
   }
 
   init() {
-    if(this.matTableT.length > 0) {
-      for (const [key, value] of Object.entries(this.matTableT[0])) {
+    if(this.matRows.length > 0) {
+      for (const [key, value] of Object.entries(this.matRows[0])) {
         this.displayedColumns.push(key.toString())
       }
-      this.dataSource.data = this.matTableT;
+      this.pagination = this.pagination.sort((a, b) => a - b);
+      this.dataSource.data = this.matRows;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
@@ -77,7 +89,7 @@ export class MatTableComponent implements OnInit, OnChanges {
 
   }
 
-  editRow(row: MatTableT) {
+  editRow(row: MatRow) {
 
   }
 

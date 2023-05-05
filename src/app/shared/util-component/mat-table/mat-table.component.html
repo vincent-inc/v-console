@@ -1,10 +1,10 @@
 <ul>
-  <li>
+  <li *ngIf="displayFilter">
       <mat-form-field style="width: 100%;">
           <mat-label>Filter</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. username" #input>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. username" [(ngModel)]="filter">
 
-          <button *ngIf="input.value" matSuffix mat-icon-button (click)="input.value=''; clearFilter()">
+          <button *ngIf="filter" matSuffix mat-icon-button (click)="filter=''; clearFilter()">
               <mat-icon>close</mat-icon>
           </button>
       </mat-form-field>
@@ -28,13 +28,13 @@
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editRow(row)"></tr>
-
+          
           <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{filter}}"</td>
           </tr>
       </table>
   </li>
-  <li>
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  <li *ngIf="displayPagination">
+      <mat-paginator  [pageSizeOptions]="pagination" aria-label="Select page of users"></mat-paginator>
   </li>
 </ul>

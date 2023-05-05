@@ -1,3 +1,3 @@
-export interface MatTableT {
+export interface MatRow {
     
 }

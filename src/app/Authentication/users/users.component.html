@@ -3,7 +3,9 @@
     <li><h1 class="text-center">User account</h1></li>
     <li>
       <app-mat-table
-      [matTableT]="userData"
+      [matRows]="userRows"
+      [displayFilter]="true"
+      [displayPagination]="true"
       ></app-mat-table>
     </li>
   </ul>
