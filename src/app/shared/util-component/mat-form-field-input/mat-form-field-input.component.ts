@@ -21,8 +21,11 @@ export class MatFormFieldInputComponent implements OnInit
   @Output()
   validValueOutput: EventEmitter<boolean> = new EventEmitter();
 
+  @Output()
+  onValueChange: EventEmitter<void> = new EventEmitter();
+
   @Input()
-  validatorFn: Function = () => "";
+  error: string = '';
 
   @Input()
   placeholder: string = '';
@@ -99,6 +102,7 @@ export class MatFormFieldInputComponent implements OnInit
   emitValue(): void
   {
     this.valueOutput.emit(this.value);
+    this.onValueChange.emit();
   }
 
   emitValidValue(valid: boolean): void
@@ -161,27 +165,5 @@ export class MatFormFieldInputComponent implements OnInit
   openLink(link: string): void
   {
     window.open(link);
-  }
-
-  getValidatorMessage(): string {
-    return this.validatorFn(this.value);
-  }
-
-  isValidValue(): boolean {
-    if(this.required && this.value === '')
-    {
-      this.emitValidValue(false);
-      return false;
-    }
-
-    if(this.validatorFn)
-    {
-      let valid = !this.getValidatorMessage()
-      this.emitValidValue(valid);
-      return valid;
-    }
-
-    this.emitValidValue(true);
-    return true;
   }
 }

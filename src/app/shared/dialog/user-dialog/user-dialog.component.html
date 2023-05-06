@@ -1,11 +1,19 @@
 <h1 mat-dialog-title>User ID: {{data.userId}}</h1>
-<div mat-dialog-content>
-  <ul>
+<div mat-dialog-content style="max-width: 100%;">
+  <ul *ngIf="user && user.userProfile">
+    <li>
+      <app-mat-form-field-input
+      label="Alias"
+      placeholder="Ex. WOW111"
+      [value]="user.userProfile!.alias!.toString()" (valueOutput)="user.userProfile!.alias = $event.toString()"
+      ></app-mat-form-field-input>
+    </li>
     <li>
       <app-mat-form-field-input
       label="Username"
       placeholder="Ex. SomethingCool123"
       [value]="user.username!.toString()" (valueOutput)="user.username = $event.toString()"
+      [required]="true"
       ></app-mat-form-field-input>
     </li>
     <li>
@@ -13,8 +21,71 @@
       label="Password"
       placeholder="Ex. SomethingBetter@123!"
       [value]="user.password!.toString()" (valueOutput)="user.password = $event.toString()"
+      [required]="true"
       [showVisibleSwitch]="true"
       [switchVisibility]="false"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="First name"
+      placeholder="Ex. firstName"
+      [value]="user.userProfile!.firstName!.toString()" (valueOutput)="user.userProfile!.firstName = $event.toString()"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="Last name"
+      placeholder="Ex. lastName"
+      [value]="user.userProfile!.lastName!.toString()" (valueOutput)="user.userProfile!.lastName = $event.toString()"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="Phone number"
+      placeholder="Ex. phoneNumber"
+      [value]="user.userProfile!.phoneNumber!.toString()" (valueOutput)="user.userProfile!.phoneNumber = $event.toString()"
+      defaultType="number"
+      min="0"
+      max="999999999999999"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="Email"
+      placeholder="Ex. email"
+      [value]="user.userProfile!.email!.toString()" (valueOutput)="user.userProfile!.email = $event.toString()"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="Home address"
+      placeholder="Ex. address"
+      [value]="user.userProfile!.address!.toString()" (valueOutput)="user.userProfile!.address = $event.toString()"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="City"
+      placeholder="Ex. city"
+      [value]="user.userProfile!.city!.toString()" (valueOutput)="user.userProfile!.city = $event.toString()"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="State"
+      placeholder="Ex. state"
+      [value]="user.userProfile!.state!.toString()" (valueOutput)="user.userProfile!.state = $event.toString()"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="Zip code"
+      placeholder="Ex. zip"
+      [value]="user.userProfile!.zip!.toString()" (valueOutput)="user.userProfile!.zip = $event.toString()"
+      defaultType="number"
+      min="0"
+      max="99999"
       ></app-mat-form-field-input>
     </li>
   </ul>

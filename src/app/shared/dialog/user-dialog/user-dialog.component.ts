@@ -50,6 +50,18 @@ export class UserDialog implements OnInit {
       this.authenticatorService.getUser(id).pipe(first()).subscribe(
         res => {
           this.user = res; 
+          if(!this.user.userProfile)
+            this.user.userProfile = {
+              firstName:   '',
+              lastName:    '',
+              phoneNumber: '',
+              email:       '',
+              address:     '',
+              city:        '',
+              state:       '',
+              zip:         '',
+              alias:       '',
+            }
           this.userClone = structuredClone(res);
         },
         error => this.dialogRef.close()
