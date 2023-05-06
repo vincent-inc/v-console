@@ -1,3 +1,27 @@
-<p>
-  user-dialog works!
-</p>
+<h1 mat-dialog-title>User ID: {{data.userId}}</h1>
+<div mat-dialog-content>
+  <ul>
+    <li>
+      <app-mat-form-field-input
+      label="Username"
+      placeholder="Ex. SomethingCool123"
+      [value]="user.username!.toString()" (valueOutput)="user.username = $event.toString()"
+      ></app-mat-form-field-input>
+    </li>
+    <li>
+      <app-mat-form-field-input
+      label="Password"
+      placeholder="Ex. SomethingBetter@123!"
+      [value]="user.password!.toString()" (valueOutput)="user.password = $event.toString()"
+      [showVisibleSwitch]="true"
+      [switchVisibility]="false"
+      ></app-mat-form-field-input>
+    </li>
+  </ul>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="!isValueChange()" (click)="save()">Save</button>
+  <button mat-raised-button color="accent" [disabled]="!isValueChange()" (click)="revert()">Revert</button>
+  <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+</div>

@@ -46,7 +46,7 @@ export class RoutePanelComponent implements OnInit {
   }
   
   save(): void {
-    this.authenticatorService.patchRoutes(this.routeCopy).pipe(first()).subscribe(
+    this.authenticatorService.patchRoute(this.routeCopy).pipe(first()).subscribe(
       res => {
         this.route = res;
         this.editEvent.emit(this.route);

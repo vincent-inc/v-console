@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatRow } from '../../model/Mat.model';
 import { MatPaginator } from '@angular/material/paginator';
@@ -25,6 +25,9 @@ export class MatTableComponent implements OnInit, OnChanges {
 
   @Input()
   displayPagination: boolean = false;
+
+  @Output()
+  onEditRow: EventEmitter<MatRow> = new EventEmitter();
 
   displayedColumns: string[] = [];
   
@@ -85,12 +88,7 @@ export class MatTableComponent implements OnInit, OnChanges {
     }
   }
 
-  editFn(): void {
-
-  }
-
   editRow(row: MatRow) {
-
+    this.onEditRow.emit(row);
   }
-
 }

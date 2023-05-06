@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { first } from 'rxjs';
+import { UserDialog } from 'src/app/shared/dialog/user-dialog/user-dialog.component';
 import UserRow, { User, UserRole } from 'src/app/shared/model/Authenticator.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
 
@@ -18,6 +19,7 @@ export class UsersComponent implements OnInit  {
 
   constructor(
     private authenticatorService: AuthenticatorService,
+    private matDialog: MatDialog
     ) { }
   
   ngOnInit() {
@@ -26,7 +28,7 @@ export class UsersComponent implements OnInit  {
 
   updateUser()
   {
-    this.authenticatorService.getAllUsers().pipe(first()).subscribe(
+    this.authenticatorService.getUsers().pipe(first()).subscribe(
       res => {
       this.userRows = [];
       res.forEach((u) => {
@@ -69,33 +71,26 @@ export class UsersComponent implements OnInit  {
 
   createNewUser(): void
   {
-    // let dialog = this.matDialog.open(CreateUserDialog);
+    let dialog = this.matDialog.open(UserDialog, {data: {userId: 0}});
 
-    // dialog.afterClosed().pipe(first()).subscribe(
-    //   res => {
-    //     this.updateUser();
-    //   }
-    // );
+    dialog.afterClosed().pipe(first()).subscribe(
+      res => {
+        if(res)
+          this.updateUser();
+      }
+    );
   }
   
   editUser(row: UserRow)
   {
-    // let dialog = this.matDialog.open(UserDetailDialog, {data: {userID: row.id}});
+    let dialog = this.matDialog.open(UserDialog, {data: {userId: row.id}});
 
-    // dialog.afterClosed().pipe(first()).subscribe(
-    //   res => {
-    //     if(res)
-    //     {
-    //       let index = this.dataSource.data.indexOf(row);
-
-    //       this.authenticatorService.getUserByID(row.id!).pipe(first()).subscribe(
-    //         res => {
-    //           this.updateUser();
-    //         }
-    //       );
-    //     }
-    //   }
-    // );
+    dialog.afterClosed().pipe(first()).subscribe(
+      res => {
+        if(res)
+          this.updateUser();
+      }
+    );
   }
 
 }

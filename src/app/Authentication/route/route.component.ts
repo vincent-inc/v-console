@@ -38,7 +38,7 @@ export class RouteComponent implements OnInit {
   }
 
   updateRoutes(): void {
-    this.authenticatorService.getAllRoutes().pipe(first()).subscribe(
+    this.authenticatorService.getRoutes().pipe(first()).subscribe(
       res => {
         this.routes = res;        
       },
@@ -111,7 +111,7 @@ export class RouteComponent implements OnInit {
       roles: []
     };
 
-    this.authenticatorService.postRoutes(newRoute).pipe(first()).subscribe(
+    this.authenticatorService.postRoute(newRoute).pipe(first()).subscribe(
       res => {
         this.routes.push(res);
       }
@@ -119,7 +119,7 @@ export class RouteComponent implements OnInit {
   }
 
   deleteRoute(route: Route): void {
-    this.authenticatorService.deleteRoutes(route.id!).pipe(first()).subscribe(
+    this.authenticatorService.deleteRoute(route.id!).pipe(first()).subscribe(
       res => {
         this.updateRoutes();
       }
