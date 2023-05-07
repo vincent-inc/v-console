@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>User ID: {{data.userId}}</h1>
-<div mat-dialog-content style="max-width: 100%;">
+<div mat-dialog-content>
   <ul *ngIf="user && user.userProfile">
     <li>
       <app-mat-form-field-input
@@ -89,6 +89,23 @@
       min="0"
       max="99999"
       ></app-mat-form-field-input>
+    </li>
+    <hr *ngIf="user.id">
+    <ng-container *ngIf="user.id">
+      <li *ngFor="let role of user.userRoles; let i = index" >
+          <mat-form-field style="width: 100%;" appearance="fill">
+            <mat-label>Role</mat-label>
+            <mat-select [(ngModel)]="role.id" required>
+              <div *ngFor="let r of userRoles">
+                <mat-option [value]="r.id">{{r.name}}</mat-option>
+              </div>
+              <mat-option (click)="removeUserRole(i)">Remove</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </li>
+    </ng-container>
+    <li *ngIf="user.id">
+      <button mat-raised-button color="primary" (click)="addNewRole()">New Role</button>
     </li>
   </ul>
 </div>

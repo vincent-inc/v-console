@@ -34,7 +34,8 @@ export class RoutePanelComponent implements OnInit {
 
   addNewRole(userRoles: UserRole[]): void {
     const random = Math.floor(Math.random() * this.userRoles.length);
-    userRoles.push(this.userRoles[random]);
+    let role = structuredClone(this.userRoles[random]);
+    userRoles.push(role);
   }
 
   isChange(): boolean {

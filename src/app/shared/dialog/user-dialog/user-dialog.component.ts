@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticatorService } from '../../service/Authenticator.service';
-import { User } from '../../model/Authenticator.model';
+import { User, UserRole } from '../../model/Authenticator.model';
 import { first } from 'rxjs';
 
 @Component({
@@ -13,6 +13,8 @@ export class UserDialog implements OnInit {
 
   user!: User;
   userClone!: User;
+
+  userRoles: UserRole[] = [];
 
   usernameExist: boolean = false;
 
@@ -27,6 +29,11 @@ export class UserDialog implements OnInit {
 
   ngOnInit() {
     let id = this.data.userId;
+    this.authenticatorService.getAllRoles().pipe(first()).subscribe(
+      res => this.userRoles = res,
+      error => {}
+    );
+
     if(id === 0) {
       this.user = {
         id: 0,
@@ -128,5 +135,15 @@ export class UserDialog implements OnInit {
         this.usernameError = res.exist ? "Username already exist" : "";
       }
     );
+  }
+
+  addNewRole(): void {
+    const random = Math.floor(Math.random() * this.userRoles.length);
+    let role = structuredClone(this.userRoles[random]);
+    this.user.userRoles!.push(role);
+  }
+
+  removeUserRole(index: number) {
+    this.user.userRoles!.splice(index, 1);
   }
 }
