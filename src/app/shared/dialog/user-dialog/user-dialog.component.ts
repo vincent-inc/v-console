@@ -16,6 +16,8 @@ export class UserDialog implements OnInit {
 
   usernameExist: boolean = false;
 
+  usernameError: string = '';
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {userId: number},
     private dialogRef: MatDialogRef<UserDialog>,
@@ -113,7 +115,18 @@ export class UserDialog implements OnInit {
         }
       );
     }
-    
   }
 
+  validateUsername() {
+    if(this.user.username === this.userClone.username) {
+      this.usernameError = "";
+      return;
+    }
+
+    this.authenticatorService.isUsernameExist(this.user.username!).pipe(first()).subscribe(
+      res => {
+        this.usernameError = res.exist ? "Username already exist" : "";
+      }
+    );
+  }
 }
