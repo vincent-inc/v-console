@@ -166,4 +166,14 @@ export class MatFormFieldInputComponent implements OnInit
   {
     window.open(link);
   }
+
+  isValidInput(): boolean {
+    if(this.required && this.value === '')
+      return false;
+
+    if(this.error)
+      return false;
+
+    return true;
+  }
 }

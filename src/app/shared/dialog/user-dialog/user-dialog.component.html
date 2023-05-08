@@ -1,8 +1,9 @@
 <h1 mat-dialog-title>User ID: {{data.userId}}</h1>
 <div mat-dialog-content>
-  <ul *ngIf="user && user.userProfile">
+  <ul *ngIf="user && user.userProfile" appMatFormFieldGroup (onAllInputCheck)="validInputs = $event">
     <li>
       <app-mat-form-field-input
+      #matInput
       label="Alias"
       placeholder="Ex. WOW111"
       [value]="user.userProfile!.alias!.toString()" (valueOutput)="user.userProfile!.alias = $event.toString()"
@@ -111,7 +112,7 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" [disabled]="!isValueChange()" (click)="save()">Save</button>
+  <button mat-raised-button color="primary" [disabled]="!validForm" (click)="save()">Save</button>
   <button mat-raised-button color="accent" [disabled]="!isValueChange()" (click)="revert()">Revert</button>
   <button mat-raised-button color="warn" mat-dialog-close>Close</button>
 </div>

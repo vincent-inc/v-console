@@ -8,6 +8,7 @@ import { CopyToClipboardDirective } from '../directive/copy-to-clipboard.directi
 import { FilterNamePipe } from '../pipes/filter-name.pipe';
 import { FilterNameReversePipe } from '../pipes/filter-name-reverse.pipe';
 import { MatTableComponent } from '../util-component/mat-table/mat-table.component';
+import { MatFormFieldGroupDirective } from '../directive/mat-form-field-group.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MatTableComponent } from '../util-component/mat-table/mat-table.compone
     CopyToClipboardDirective,
     FilterNamePipe,
     FilterNameReversePipe,
-    MatTableComponent
+    MatTableComponent,
+    MatFormFieldGroupDirective
   ],
   imports: [
     NgMaterialModule,
@@ -30,7 +32,8 @@ import { MatTableComponent } from '../util-component/mat-table/mat-table.compone
     CopyToClipboardDirective,
     FilterNamePipe,
     FilterNameReversePipe,
-    MatTableComponent
+    MatTableComponent,
+    MatFormFieldGroupDirective
   ]
 })
 export class NgComponentModule { }

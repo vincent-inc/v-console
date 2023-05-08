@@ -1,15 +1,17 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticatorService } from '../../service/Authenticator.service';
 import { User, UserRole } from '../../model/Authenticator.model';
 import { first } from 'rxjs';
+import { MatFormFieldInputComponent } from '../../util-component/mat-form-field-input/mat-form-field-input.component';
+import { MatFormFieldGroupDirective } from '../../directive/mat-form-field-group.directive';
 
 @Component({
   selector: 'app-user-dialog',
   templateUrl: './user-dialog.component.html',
   styleUrls: ['./user-dialog.component.scss']
 })
-export class UserDialog implements OnInit {
+export class UserDialog implements OnInit, AfterViewChecked {
 
   user!: User;
   userClone!: User;
@@ -20,12 +22,19 @@ export class UserDialog implements OnInit {
 
   usernameError: string = '';
 
+  validInputs: boolean = false;
+  validForm: boolean = false;
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {userId: number},
     private dialogRef: MatDialogRef<UserDialog>,
     private authenticatorService: AuthenticatorService,
-    private matDialog: MatDialog
+    private cd: ChangeDetectorRef
   ) { }
+  
+  ngAfterViewChecked(): void {
+    this.checkValidForm();
+  }
 
   ngOnInit() {
     let id = this.data.userId;
@@ -79,6 +88,11 @@ export class UserDialog implements OnInit {
     
   }
 
+  checkValidForm(): void {
+    this.validForm = this.validInputs && this.isValueChange();
+    this.cd.detectChanges();
+  }
+
   checkUsername(): void
   {
     if(this.user.username)
@@ -91,6 +105,11 @@ export class UserDialog implements OnInit {
   isValueChange(): boolean
   {
     return JSON.stringify(this.user) !== JSON.stringify(this.userClone);
+  }
+
+  isValueNotChange(): boolean
+  {
+    return JSON.stringify(this.user) === JSON.stringify(this.userClone);
   }
 
   revert()
@@ -125,7 +144,7 @@ export class UserDialog implements OnInit {
   }
 
   validateUsername() {
-    if(this.user.username === this.userClone.username) {
+    if(this.user.username === this.userClone.username || !this.user.username) {
       this.usernameError = "";
       return;
     }
@@ -133,7 +152,8 @@ export class UserDialog implements OnInit {
     this.authenticatorService.isUsernameExist(this.user.username!).pipe(first()).subscribe(
       res => {
         this.usernameError = res.exist ? "Username already exist" : "";
-      }
+      },
+      error => {}
     );
   }
 
