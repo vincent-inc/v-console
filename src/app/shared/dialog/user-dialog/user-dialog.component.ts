@@ -38,7 +38,7 @@ export class UserDialog implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     let id = this.data.userId;
-    this.authenticatorService.getAllRoles().pipe(first()).subscribe(
+    this.authenticatorService.getUserRoles().pipe(first()).subscribe(
       res => this.userRoles = res,
       error => {}
     );

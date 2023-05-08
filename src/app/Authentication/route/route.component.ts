@@ -29,7 +29,7 @@ export class RouteComponent implements OnInit {
   }
 
   updateUserRoles(): void {
-    this.authenticatorService.getAllRoles().pipe(first()).subscribe(
+    this.authenticatorService.getUserRoles().pipe(first()).subscribe(
       res => {
         this.userRoles = res
       },

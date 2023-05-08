@@ -66,6 +66,12 @@ export class MatFormFieldInputComponent implements OnInit
   @Input()
   showGenerateValue: boolean = false;
 
+  @Input()
+  alwayUppercase: boolean = false;
+
+  @Input()
+  alwayLowercase: boolean = false;
+
   //input copy
   @Input()
   copyDisplayMessage: string = this.value.toString();
@@ -101,7 +107,15 @@ export class MatFormFieldInputComponent implements OnInit
 
   emitValue(): void
   {
-    this.valueOutput.emit(this.value);
+    let value = this.value;
+
+    if(this.alwayLowercase && typeof value === 'string')
+      value = value.toLowerCase();
+
+    if(this.alwayUppercase && typeof value === 'string')
+      value = value.toUpperCase();
+    
+    this.valueOutput.emit(value);
     this.onValueChange.emit();
   }
 

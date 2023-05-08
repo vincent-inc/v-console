@@ -13,9 +13,6 @@ export class MatFormFieldGroupDirective implements AfterContentInit, AfterConten
   @ContentChildren(MatFormFieldInputComponent, {descendants: true}) 
   matFromFieldInputs!: QueryList<MatFormFieldInputComponent>;
 
-  @ContentChild(MatButton)
-  matButton!: MatButton;
-
   constructor() { 
 
   }

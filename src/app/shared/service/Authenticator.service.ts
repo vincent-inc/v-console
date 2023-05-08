@@ -138,8 +138,28 @@ export class AuthenticatorService {
   }
 
   //UserRoles
-  public getAllRoles(): Observable<UserRole[]> {
+  public getUserRoles(): Observable<UserRole[]> {
     return this.httpClient.get<UserRole[]>(`${this.settingService.getGatewayUrl()}/${this.prefix}/roles`);
+  }
+
+  public getUserRole(id: number): Observable<UserRole> {
+    return this.httpClient.get<UserRole>(`${this.settingService.getGatewayUrl()}/${this.prefix}/roles/${id}`);
+  }
+
+  public postUserRole(role: UserRole): Observable<UserRole> {
+    return this.httpClient.post<UserRole>(`${this.settingService.getGatewayUrl()}/${this.prefix}/roles`, role);
+  }
+
+  public putUserRole(role: UserRole): Observable<UserRole> {
+    return this.httpClient.put<UserRole>(`${this.settingService.getGatewayUrl()}/${this.prefix}/roles/${role.id}`, role);
+  }
+
+  public patchUserRole(role: UserRole): Observable<UserRole> {
+    return this.httpClient.patch<UserRole>(`${this.settingService.getGatewayUrl()}/${this.prefix}/roles/${role.id}`, role);
+  }
+
+  public deleteUserRole(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.settingService.getGatewayUrl()}/${this.prefix}/roles/${id}`);
   }
 
   //Routes
