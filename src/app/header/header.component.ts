@@ -29,11 +29,11 @@ export class HeaderComponent implements OnInit {
   }
 
   getAlias(): string {
-    if(this.authenticatorService.currentUser?.userProfile?.alias)
+    if (this.authenticatorService.currentUser?.userProfile?.alias)
       return this.authenticatorService.currentUser?.userProfile?.alias;
-    else if(this.authenticatorService.currentUser?.userProfile?.firstName && this.authenticatorService.currentUser?.userProfile?.lastName)
+    else if (this.authenticatorService.currentUser?.userProfile?.firstName && this.authenticatorService.currentUser?.userProfile?.lastName)
       return `${this.authenticatorService.currentUser?.userProfile?.firstName} ${this.authenticatorService.currentUser?.userProfile?.lastName}`
-    else 
+    else
       return ""
   }
 }

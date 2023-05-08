@@ -10,8 +10,7 @@ import { MatFormFieldAppearance, MatFormFieldDefaultOptions } from '@angular/mat
   templateUrl: './mat-form-field-input.component.html',
   styleUrls: ['./mat-form-field-input.component.scss']
 })
-export class MatFormFieldInputComponent implements OnInit
-{
+export class MatFormFieldInputComponent implements OnInit {
   @Input()
   value: string | number = '';
 
@@ -44,7 +43,7 @@ export class MatFormFieldInputComponent implements OnInit
 
   @Input()
   styleWidth?: string;
-  
+
   @Input()
   required: boolean = false;
 
@@ -105,60 +104,54 @@ export class MatFormFieldInputComponent implements OnInit
   ngOnInit() {
   }
 
-  emitValue(): void
-  {
+  emitValue(): void {
     let value = this.value;
 
-    if(this.alwayLowercase && typeof value === 'string')
+    if (this.alwayLowercase && typeof value === 'string')
       value = value.toLowerCase();
 
-    if(this.alwayUppercase && typeof value === 'string')
+    if (this.alwayUppercase && typeof value === 'string')
       value = value.toUpperCase();
-    
+
     this.valueOutput.emit(value);
     this.onValueChange.emit();
   }
 
-  emitValidValue(valid: boolean): void
-  {
+  emitValidValue(valid: boolean): void {
     this.validValueOutput.emit(valid);
   }
 
-  clear(): void
-  {
-    if(this.defaultType === 'number')
+  clear(): void {
+    if (this.defaultType === 'number')
       this.value = 0;
     else
       this.value = '';
     this.valueOutput.emit(this.value);
   }
 
-  getSize(data: string): number
-  {
+  getSize(data: string): number {
     let offset = 10;
-    if(this.showCopyToClipboard)
+    if (this.showCopyToClipboard)
       offset += 5;
-    if(this.showGenerateValue)
+    if (this.showGenerateValue)
       offset += 5;
-    if(this.showGoto)
+    if (this.showGoto)
       offset += 5;
-    if(this.showVisibleSwitch)
+    if (this.showVisibleSwitch)
       offset += 5;
-    
-    if(!this.autoResize)
+
+    if (!this.autoResize)
       return this.width;
 
-    if(data.length <= 10)
+    if (data.length <= 10)
       return this.width;
     else
       return data.length + offset;
   }
 
-  getAppearance(): MatFormFieldAppearance
-  {
+  getAppearance(): MatFormFieldAppearance {
     let appearance: MatFormFieldAppearance = 'fill';
-    switch(this.appearance.toLowerCase())
-    {
+    switch (this.appearance.toLowerCase()) {
       case 'fill':
       case '1':
         appearance = 'fill'
@@ -176,16 +169,15 @@ export class MatFormFieldInputComponent implements OnInit
     return appearance;
   }
 
-  openLink(link: string): void
-  {
+  openLink(link: string): void {
     window.open(link);
   }
 
   isValidInput(): boolean {
-    if(this.required && this.value === '')
+    if (this.required && this.value === '')
       return false;
 
-    if(this.error)
+    if (this.error)
       return false;
 
     return true;

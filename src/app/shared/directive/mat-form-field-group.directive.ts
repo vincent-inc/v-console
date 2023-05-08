@@ -10,10 +10,10 @@ export class MatFormFieldGroupDirective implements AfterContentInit, AfterConten
   @Output()
   onAllInputCheck: EventEmitter<boolean> = new EventEmitter();
 
-  @ContentChildren(MatFormFieldInputComponent, {descendants: true}) 
+  @ContentChildren(MatFormFieldInputComponent, { descendants: true })
   matFromFieldInputs!: QueryList<MatFormFieldInputComponent>;
 
-  constructor() { 
+  constructor() {
 
   }
 
@@ -27,7 +27,7 @@ export class MatFormFieldGroupDirective implements AfterContentInit, AfterConten
   validateAllInput(): boolean {
     let valid = true;
     this.matFromFieldInputs.forEach(e => {
-      if(!valid)
+      if (!valid)
         return;
 
       valid = e.isValidInput();

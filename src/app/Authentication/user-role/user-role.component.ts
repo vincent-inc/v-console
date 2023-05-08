@@ -20,7 +20,7 @@ export class UserRoleComponent implements OnInit {
   constructor(
     private authenticatorService: AuthenticatorService,
     private matDialog: MatDialog
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.init();
@@ -45,18 +45,17 @@ export class UserRoleComponent implements OnInit {
 
   addNewRole(): void {
 
-    let dialog = this.matDialog.open(ConfirmDialog, {data: {title: "Create new role confirmation", message: 'Are you sure you want to create new role?\nAfter save it will be irreversible.'}});
+    let dialog = this.matDialog.open(ConfirmDialog, { data: { title: "Create new role confirmation", message: 'Are you sure you want to create new role?\nAfter save it will be irreversible.' } });
 
     dialog.afterClosed().pipe(first()).subscribe(
       res => {
-        if(res)
-        {
+        if (res) {
           let newRole: UserRole = {
             id: 0,
             name: '',
             level: 1
           }
-      
+
           this.userRoles.push(newRole);
         }
       }
@@ -65,8 +64,8 @@ export class UserRoleComponent implements OnInit {
 
   async save(): Promise<void> {
 
-    for(const e of this.userRoles) {
-      if(e.id)
+    for (const e of this.userRoles) {
+      if (e.id)
         await this.patchUserRole(e);
       else
         await this.createUserRole(e);
@@ -78,20 +77,20 @@ export class UserRoleComponent implements OnInit {
   async patchUserRole(userRole: UserRole): Promise<void> {
     return new Promise<void>((resolve) => {
       this.authenticatorService.patchUserRole(userRole).pipe(first()).subscribe(
-        res => {},
-        error => {},
-        () => {resolve()}
-        );
+        res => { },
+        error => { },
+        () => { resolve() }
+      );
     })
   }
 
   async createUserRole(userRole: UserRole): Promise<void> {
     return new Promise<void>((resolve) => {
       this.authenticatorService.postUserRole(userRole).pipe(first()).subscribe(
-        res => {},
-        error => {},
-        () => {resolve()}
-        );
+        res => { },
+        error => { },
+        () => { resolve() }
+      );
     })
   }
 
