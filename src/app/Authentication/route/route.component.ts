@@ -18,7 +18,6 @@ export class RouteComponent implements OnInit {
 
   routes: Route[] = [];
   userRoles: UserRole[] = [];
-  validPath: boolean = false;
   path: string = "/";
 
   constructor(private authenticatorService: AuthenticatorService) { }

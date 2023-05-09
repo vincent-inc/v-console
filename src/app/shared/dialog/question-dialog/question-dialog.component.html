@@ -27,7 +27,8 @@
     </li>
     <li *ngFor="let answer of question.possibleAnswer; let i = index">
       <app-mat-form-field-input
-      [value]="answer" (valueOutput)="this.question.possibleAnswer![i] = $event.toString()"
+      [value]="answer" (valueOutput)="this.question.possibleAnswer!.splice(i, 1, $event.toString())"
+      [manuallyEmitValue]="true"
       label="Possible answer"
       ></app-mat-form-field-input>
     </li>

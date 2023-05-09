@@ -10,15 +10,14 @@ import { MatFormFieldAppearance, MatFormFieldDefaultOptions } from '@angular/mat
   templateUrl: './mat-form-field-input.component.html',
   styleUrls: ['./mat-form-field-input.component.scss']
 })
-export class MatFormFieldInputComponent implements OnInit {
+export class MatFormFieldInputComponent implements OnInit, OnChanges {
   @Input()
   value: string | number = '';
 
-  @Output()
-  valueOutput: EventEmitter<string | number> = new EventEmitter();
+  valueCopy: string | number = '';
 
   @Output()
-  validValueOutput: EventEmitter<boolean> = new EventEmitter();
+  valueOutput: EventEmitter<string | number> = new EventEmitter();
 
   @Output()
   onValueChange: EventEmitter<void> = new EventEmitter();
@@ -57,6 +56,9 @@ export class MatFormFieldInputComponent implements OnInit {
   showGoto: boolean = false;
 
   @Input()
+  showClearIcon: boolean = true;
+
+  @Input()
   showVisibleSwitch: boolean = false;
 
   @Input()
@@ -70,6 +72,9 @@ export class MatFormFieldInputComponent implements OnInit {
 
   @Input()
   alwayLowercase: boolean = false;
+
+  @Input()
+  manuallyEmitValue: boolean = false;
 
   //input copy
   @Input()
@@ -104,6 +109,10 @@ export class MatFormFieldInputComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+      this.valueCopy = structuredClone(this.value);
+  }
+
   emitValue(): void {
     let value = this.value;
 
@@ -117,8 +126,11 @@ export class MatFormFieldInputComponent implements OnInit {
     this.onValueChange.emit();
   }
 
-  emitValidValue(valid: boolean): void {
-    this.validValueOutput.emit(valid);
+  emitValueWithCondition(): void {
+    if(this.manuallyEmitValue)
+      return;
+
+    this.emitValue();
   }
 
   clear(): void {
@@ -126,6 +138,10 @@ export class MatFormFieldInputComponent implements OnInit {
       this.value = 0;
     else
       this.value = '';
+
+    if(this.manuallyEmitValue)
+      return;
+      
     this.valueOutput.emit(this.value);
   }
 
@@ -181,5 +197,13 @@ export class MatFormFieldInputComponent implements OnInit {
       return false;
 
     return true;
+  }
+
+  isValueChange(): boolean {
+    return this.value !== this.valueCopy;
+  }
+
+  isValueNotChange(): boolean {
+    return this.value === this.valueCopy;
   }
 }
