@@ -19,6 +19,7 @@ import { RouteComponent } from './Authentication/route/route.component';
 import { RoutePanelComponent } from './Authentication/route/route-panel/route-panel.component';
 import { UserRoleComponent } from './Authentication/user-role/user-role.component';
 import { UsersComponent } from './Authentication/users/users.component';
+import { QuestionComponent } from './vgame/question/question.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { UsersComponent } from './Authentication/users/users.component';
     RouteComponent,
     RoutePanelComponent,
     UsersComponent,
-    UserRoleComponent
+    UserRoleComponent,
+    QuestionComponent
   ],
   imports: [
     NgEssentialModule,

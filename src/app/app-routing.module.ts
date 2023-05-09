@@ -7,6 +7,7 @@ import { RequestSenderComponent } from './request-sender/request-sender.componen
 import { RouteComponent } from './Authentication/route/route.component';
 import { UserRoleComponent } from './Authentication/user-role/user-role.component';
 import { UsersComponent } from './Authentication/users/users.component';
+import { QuestionComponent } from './vgame/question/question.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,17 @@ const routes: Routes = [
       {
         path: 'user_role',
         component: UserRoleComponent
+      }
+    ]
+  },
+
+  // VGame
+  {
+    path: 'vgame',
+    children: [
+      {
+        path: 'question',
+        component: QuestionComponent
       }
     ]
   }
