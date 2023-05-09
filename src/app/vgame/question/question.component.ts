@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs';
+import { QuestionDialog } from 'src/app/shared/dialog/question-dialog/question-dialog.component';
 import { QuestionRow } from 'src/app/shared/model/VGame.model';
 import { VGameService } from 'src/app/shared/service/VGame.service';
 
@@ -39,6 +40,24 @@ export class QuestionComponent implements OnInit {
   }
   
   addNewQuestion() {
-    
+    let dialog = this.matDialog.open(QuestionDialog, {data: {questionId: 0}});
+
+    dialog.afterClosed().pipe(first()).subscribe(
+      res => {
+        if(res)
+          this.init();
+      }
+    );
+  }
+
+  editQuestion(questionRow: QuestionRow) {
+    let dialog = this.matDialog.open(QuestionDialog, {data: {questionId: questionRow.id}});
+
+    dialog.afterClosed().pipe(first()).subscribe(
+      res => {
+        if(res)
+          this.init();
+      }
+    );
   }
 }

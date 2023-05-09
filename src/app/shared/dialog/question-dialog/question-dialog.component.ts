@@ -51,4 +51,56 @@ export class QuestionDialog implements OnInit {
     }
   }
 
+  save(): void
+  {
+    if(this.question.id === 0) {
+      this.vgameService.postQuestion(this.question).pipe(first()).subscribe(
+        res => {
+          this.dialogRef.close('save')
+        },
+        err => {
+          window.alert('Technical difficulty, please try again latter');
+          this.dialogRef.close('');
+        }
+      );
+    }
+    else {
+      this.vgameService.patchQuestion(this.question).pipe(first()).subscribe(
+        res => {
+          this.dialogRef.close('save')
+        },
+        err => {
+          window.alert('Technical difficulty, please try again latter');
+          this.dialogRef.close('');
+        }
+      );
+    }
+  }
+
+  isValueChange(): boolean
+  {
+    return JSON.stringify(this.question) !== JSON.stringify(this.questionCopy);
+  }
+
+  isValueNotChange(): boolean
+  {
+    return JSON.stringify(this.question) === JSON.stringify(this.questionCopy);
+  }
+
+  revert() {
+    this.question = structuredClone(this.questionCopy);
+  }
+
+  addNewPossibleAnswer() {
+    this.question.possibleAnswer!.push('');
+  }
+
+  addNewCorrectAnswer() {
+    this.question.answer?.correctAnswer?.push("");
+  }
+
+  removeCorrectAnswer(i: number) {
+    this.question.answer!.correctAnswer!.splice(i, 1);
+  }
+
 }

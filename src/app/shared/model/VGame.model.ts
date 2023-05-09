@@ -16,8 +16,8 @@ export interface Answer {
 }
 
 export class QuestionRow implements MatRow {
-    id:             number = 0;
-    question:       string = '';
-    category:       string = '';
-    orderBy:        number = 0;
+    id?:             number;
+    question?:       string;
+    category?:       string;
+    orderBy?:        number;
 }

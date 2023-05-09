@@ -5,12 +5,14 @@ import { NgMaterialModule } from './ng-material.module';
 import { NgEssentialModule } from './ng-essential.module';
 import { UserDialog } from '../dialog/user-dialog/user-dialog.component';
 import { NgComponentModule } from './ng-component.module';
+import { QuestionDialog } from '../dialog/question-dialog/question-dialog.component';
 
 @NgModule({
   declarations: [
     ConfirmDialog,
     InputDialog,
-    UserDialog
+    UserDialog,
+    QuestionDialog
   ],
   imports: [
     NgMaterialModule,
@@ -20,7 +22,8 @@ import { NgComponentModule } from './ng-component.module';
   exports: [
     ConfirmDialog,
     InputDialog,
-    UserDialog
+    UserDialog,
+    QuestionDialog
   ]
 })
 export class NgDialogModule { }

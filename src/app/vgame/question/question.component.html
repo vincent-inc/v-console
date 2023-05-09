@@ -4,6 +4,9 @@
     <li>
       <app-mat-table
       [matRows]="questionRows"
+      (onEditRow)="editQuestion($event)"
+      [displayFilter]="true"
+      [displayPagination]="true"
       ></app-mat-table>
     </li>
     <br>
