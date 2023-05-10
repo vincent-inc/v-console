@@ -3,7 +3,7 @@
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. username" [(ngModel)]="filter">
 
-        <button *ngIf="filter" matSuffix mat-icon-button (cdivck)="filter=''; clearFilter()">
+        <button *ngIf="filter" matSuffix mat-icon-button (click)="filter=''; clearFilter()">
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>

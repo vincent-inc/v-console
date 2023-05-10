@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
   {
     let body = req.body;
-    let jwt = this.authenticatorService.getJwt();
+    let jwt = this.authenticatorService.getJwtWithReroute();
 
     if(body && typeof body === 'string')
       return next.handle(req.clone({
