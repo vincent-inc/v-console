@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: v-console-dev
+  name: v-console-dev-deployment
   namespace: v-console-dev
   labels:
     app: v-console-dev

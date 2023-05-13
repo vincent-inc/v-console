@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: v-console-stage
+  name: v-console-stage-deployment
   namespace: v-console-stage
   labels:
     app: v-console-stage
