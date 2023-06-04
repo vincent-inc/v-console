@@ -8,12 +8,12 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 export class MatFormFieldComponent implements OnInit, OnChanges {
 
   @Input()
-  value: string | number = '';
+  value: string | number | any = '';
 
-  valueCopy: string | number = '';
+  valueCopy: string | number | any = '';
 
   @Output()
-  valueOutput: EventEmitter<string | number> = new EventEmitter();
+  valueOutput: EventEmitter<string | number | any> = new EventEmitter();
 
   @Output()
   onValueChange: EventEmitter<void> = new EventEmitter();

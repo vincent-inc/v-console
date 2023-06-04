@@ -12,6 +12,11 @@ import { MatFormFieldComponent } from '../mat-form-field/mat-form-field.componen
 export class MatFormFieldTextAreaComponent extends MatFormFieldComponent {
 
   @Input()
+  override value: string = '';
+
+  override valueCopy: string = '';
+
+  @Input()
   maxlength: string = '';
 
   @Input()
