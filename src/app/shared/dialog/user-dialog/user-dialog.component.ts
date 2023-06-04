@@ -134,7 +134,7 @@ export class UserDialog implements OnInit, AfterViewChecked {
       );
     }
     else {
-      this.authenticatorService.patchUser(this.user).pipe(first()).subscribe(
+      this.authenticatorService.putUser(this.user).pipe(first()).subscribe(
         res => {
           this.dialogRef.close('save')
         },
