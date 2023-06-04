@@ -55,6 +55,24 @@ export class MatFormFieldInputTimeComponent extends MatFormFieldComponent {
     super()
   }
 
+  override ngOnInit() {
+    super.ngOnInit();
+    if(this.value) {
+      this.startDate = new Date();
+      this.startDate?.setFullYear(this.value.year!);
+      this.startDate?.setMonth(this.value.month! - 1);
+      this.startDate?.setDate(this.value.day!);
+
+      if(this.toValue) {
+        this.endDate = new Date();
+        this.endDate?.setFullYear(this.toValue.year!);
+        this.endDate?.setMonth(this.toValue.month! - 1);
+        this.endDate?.setDate(this.toValue.day!);
+      }
+      this.displayDatePicked();
+    }
+  }
+
   async now() {
     let time = await this.authenticatorSerice.getTime();
     this.value = time; 
