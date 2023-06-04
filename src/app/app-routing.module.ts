@@ -11,10 +11,6 @@ import { QuestionComponent } from './vgame/question/question.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomeComponent
-  },
-  {
     path: 'home',
     component: HomeComponent
   },
@@ -79,6 +75,12 @@ const routes: Routes = [
         component: QuestionComponent
       }
     ]
+  },
+
+  // default path
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
 
