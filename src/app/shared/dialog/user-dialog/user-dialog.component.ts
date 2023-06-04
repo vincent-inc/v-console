@@ -169,4 +169,8 @@ export class UserDialog implements OnInit, AfterViewChecked {
   removeUserRole(index: number) {
     this.user.userRoles!.splice(index, 1);
   }
+
+  clearExpire() {
+    this.user.expireTime = undefined;
+  }
 }

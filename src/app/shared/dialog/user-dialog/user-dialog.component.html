@@ -123,11 +123,11 @@
         <mat-label>Expirable</mat-label>
         <mat-select [(ngModel)]="user.expirable">
           <mat-option [value]="true">TRUE</mat-option>
-          <mat-option [value]="false">FALSE</mat-option>
+          <mat-option [value]="false" (click)="clearExpire()">FALSE</mat-option>
         </mat-select>
       </mat-form-field>
     </li>
-    <li>
+    <li *ngIf="user.expirable">
       <app-mat-form-field-input-time
       [value]="user.expireTime!" (valueOutput)="user.expireTime = $event"
       label="expire"
