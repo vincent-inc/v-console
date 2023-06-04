@@ -119,6 +119,9 @@ export class UserDialog implements OnInit, AfterViewChecked {
 
   save(): void
   {
+    if(!this.validForm)
+      return;
+
     if(this.user.id === 0) {
       this.authenticatorService.postUser(this.user).pipe(first()).subscribe(
         res => {
