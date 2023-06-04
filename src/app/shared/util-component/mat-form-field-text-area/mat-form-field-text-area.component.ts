@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatFormFieldComponent } from '../mat-form-field/mat-form-field.component';
@@ -15,6 +15,9 @@ export class MatFormFieldTextAreaComponent extends MatFormFieldComponent {
   override value: string = '';
 
   override valueCopy: string = '';
+
+  @Output()
+  override valueOutput: EventEmitter<string> = new EventEmitter();
 
   @Input()
   maxlength: string = '';
@@ -36,9 +39,6 @@ export class MatFormFieldTextAreaComponent extends MatFormFieldComponent {
 
   @Input()
   cols: string = '';
-
-  @Input()
-  label: string = '';
 
   @Input()
   styleWidth?: string;

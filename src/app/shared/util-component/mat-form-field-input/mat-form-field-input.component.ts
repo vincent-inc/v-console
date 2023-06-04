@@ -27,9 +27,6 @@ export class MatFormFieldInputComponent extends MatFormFieldComponent {
   width: number = 40;
 
   @Input()
-  label: string = '';
-
-  @Input()
   styleWidth?: string;
 
   @Input()

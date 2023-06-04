@@ -25,6 +25,9 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
   error: string = '';
 
   @Input()
+  label: string = '';
+
+  @Input()
   required: boolean = false;
 
   @Input()
