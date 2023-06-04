@@ -1,8 +1,8 @@
 Docker build dev
-[![Build Status](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fvshop%2Fv-console-dev)](https://vincentprivate.synology.me:112/job/vincent-services/job/vshop/view/v-console/job/v-console-dev/)
+[![Build Status](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-dev)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-dev/)
 
 Deploy dev
-[![Build Status](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fvshop%2Fv-console-dev-k8s)](https://vincentprivate.synology.me:112/job/vincent-services/job/vshop/view/v-console/job/v-console-dev-k8s/)
+[![Build Status](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-dev-k8s)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-dev-k8s/)
 
 # VConsole
 
