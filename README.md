@@ -1,10 +1,14 @@
-Docker build dev
 <br>
-[![Build Status](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-dev)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-dev/)
+[![Dev build](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-dev)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-dev/)
+[![Dev deploy](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-dev-k8s)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-dev-k8s/)
 
-Deploy dev
 <br>
-[![Build Status](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-dev-k8s)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-dev-k8s/)
+[![Stage build](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-stage)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-stage/)
+[![Stage deploy](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-stage-k8s)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-stage-k8s/)
+
+<br>
+[![Prod build](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-prod)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-prod/)
+[![Prod deploy](https://vincentprivate.synology.me:112/buildStatus/icon?job=vincent-services%2Fv-eco%2Fv-console-prod-k8s)](https://vincentprivate.synology.me:112/job/vincent-services/job/v-eco/view/v-console/job/v-console-prod-k8s/)
 
 # VConsole
 
