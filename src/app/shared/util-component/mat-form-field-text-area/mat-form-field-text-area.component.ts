@@ -1,14 +1,14 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { MatFormFieldAppearance, MatFormFieldDefaultOptions } from '@angular/material/form-field';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-mat-form-field-input',
-  templateUrl: './mat-form-field-input.component.html',
-  styleUrls: ['./mat-form-field-input.component.scss']
+  selector: 'app-mat-form-field-text-area',
+  templateUrl: './mat-form-field-text-area.component.html',
+  styleUrls: ['./mat-form-field-text-area.component.scss']
 })
-export class MatFormFieldInputComponent implements OnInit, OnChanges {
+export class MatFormFieldTextAreaComponent implements OnInit {
+
   @Input()
   value: string | number = '';
 
@@ -42,6 +42,12 @@ export class MatFormFieldInputComponent implements OnInit, OnChanges {
   width: number = 40;
 
   @Input()
+  rows: string = '';
+
+  @Input()
+  cols: string = '';
+
+  @Input()
   label: string = '';
 
   @Input()
@@ -54,6 +60,9 @@ export class MatFormFieldInputComponent implements OnInit, OnChanges {
   autoResize: boolean = false;
 
   @Input()
+  autoResizeHeight: boolean = true;
+
+  @Input()
   disable: boolean = false;
 
   @Input()
@@ -63,7 +72,7 @@ export class MatFormFieldInputComponent implements OnInit, OnChanges {
   showClearIcon: boolean = true;
 
   @Input()
-  showVisibleSwitch: boolean = false;
+  showEnterIcon: boolean = false;
 
   @Input()
   showCopyToClipboard: boolean = false;
@@ -84,30 +93,6 @@ export class MatFormFieldInputComponent implements OnInit, OnChanges {
   @Input()
   copyDisplayMessage: string = this.value.toString();
 
-  //switch
-  @Input()
-  switchVisibility: boolean = false;
-
-  @Input()
-  defaultType: string = 'text';
-
-  @Input()
-  switchType: string = 'password';
-
-  @Input()
-  onIcon: string = 'visibility';
-
-  @Input()
-  offIcon: string = 'visibility_off';
-
-  //case of number
-
-  @Input()
-  min: string = '';
-
-  @Input()
-  max: string = '';
-
   constructor() { }
 
   ngOnInit() {
@@ -126,12 +111,6 @@ export class MatFormFieldInputComponent implements OnInit, OnChanges {
     if (this.alwayUppercase && typeof value === 'string')
       value = value.toUpperCase();
 
-    if (this.defaultType === 'number' && this.min && +value < +this.min)
-      value = +this.min;
-
-    if (this.defaultType === 'number' && this.max && +value > +this.max)
-      value = +this.max;
-
     this.valueOutput.emit(value);
     this.onValueChange.emit();
   }
@@ -144,14 +123,11 @@ export class MatFormFieldInputComponent implements OnInit, OnChanges {
   }
 
   clear(): void {
-    if (this.defaultType === 'number')
-      this.value = 0;
-    else
-      this.value = '';
+    this.value = ''
 
     if(this.manuallyEmitValue)
       return;
-      
+
     this.valueOutput.emit(this.value);
   }
 
@@ -162,8 +138,6 @@ export class MatFormFieldInputComponent implements OnInit, OnChanges {
     if (this.showGenerateValue)
       offset += 5;
     if (this.showGoto)
-      offset += 5;
-    if (this.showVisibleSwitch)
       offset += 5;
 
     if (!this.autoResize)
@@ -220,4 +194,5 @@ export class MatFormFieldInputComponent implements OnInit, OnChanges {
   isValueString(): boolean {
     return typeof this.value === 'string';
   }
+
 }
