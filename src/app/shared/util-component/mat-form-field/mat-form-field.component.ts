@@ -24,6 +24,8 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
   @Input()
   error: string = '';
 
+  internalError = '';
+
   @Input()
   label: string = '';
 
@@ -62,6 +64,9 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
 
   isValidInput(): boolean {
     if (this.required && this.value === '')
+      return false;
+
+    if(this.internalError)
       return false;
 
     if (this.error)

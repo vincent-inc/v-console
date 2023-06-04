@@ -129,8 +129,10 @@
     </li>
     <li>
       <app-mat-form-field-input-time
-      [value]="user.expireTime!"
+      [value]="user.expireTime!" (valueOutput)="user.expireTime = $event"
       label="expire"
+      type="DATE_TIME"
+      styleWidth="100%"
       ></app-mat-form-field-input-time>
     </li>
   </ul>

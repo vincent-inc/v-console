@@ -6,7 +6,11 @@
   <mat-hint *ngIf="error" style="color: red;" align="start">{{error}}</mat-hint>
   <mat-hint *ngIf="manuallyEmitValue && isValueChange()" style="color: goldenrod;" align="start">Press apply icon to apply input</mat-hint>
   <mat-hint *ngIf="isValueString() && maxlength" align="end">{{value.toString().length}} / {{maxlength}}</mat-hint>
-  
+  <mat-hint *ngIf="showMinMaxHint && isValueNumber() && value" align="end">
+    <ng-container *ngIf="min">{{min + '\<'}}</ng-container>
+    <span [ngStyle]="{color: exceedMax() || exceedMin() ? 'red' : 'white'}">{{value}}</span>
+    <ng-container *ngIf="max">{{'\<' + max}}</ng-container>
+  </mat-hint>
 
   <button *ngIf="manuallyEmitValue && isValueChange()" matSuffix mat-icon-button (click)="emitValue()">
     <mat-icon>check_circle_outline</mat-icon>

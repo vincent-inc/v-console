@@ -48,6 +48,9 @@ export class MatFormFieldInputComponent extends MatFormFieldComponent {
   showGenerateValue: boolean = false;
 
   @Input()
+  showMinMaxHint: boolean = false;
+
+  @Input()
   alwayUppercase: boolean = false;
 
   @Input()
@@ -97,14 +100,41 @@ export class MatFormFieldInputComponent extends MatFormFieldComponent {
     if (this.alwayUppercase && typeof value === 'string')
       value = value.toUpperCase();
 
-    if (this.defaultType === 'number' && this.min && +value < +this.min)
+    if (this.isValueNumber() && this.min && +value < +this.min)
       value = +this.min;
 
-    if (this.defaultType === 'number' && this.max && +value > +this.max)
+    if (this.isValueNumber() && this.max && +value > +this.max)
       value = +this.max;
 
     this.valueOutput.emit(value);
     this.onValueChange.emit();
+  }
+
+  override isValidInput(): boolean {
+    if (this.required && this.value === '')
+      return false;
+
+    if(this.exceedMax() || this.exceedMin())
+      return false;
+
+    if (this.error)
+      return false;
+
+    return true;
+  }
+
+  exceedMax(): boolean {
+    if(this.isValueNumber() && this.max)
+      return +this.value > +this.max;
+
+    return false;
+  }
+
+  exceedMin(): boolean {
+    if(this.isValueNumber() && this.min)
+      return +this.value < +this.min;
+
+    return false;
   }
 
   emitValueWithCondition(): void {
@@ -168,5 +198,9 @@ export class MatFormFieldInputComponent extends MatFormFieldComponent {
 
   openLink(link: string): void {
     window.open(link);
+  }
+
+  override isValueNumber(): boolean {
+    return this.defaultType === 'number' || typeof this.value === 'number';
   }
 }
