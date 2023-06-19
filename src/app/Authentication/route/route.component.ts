@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs';
@@ -17,7 +17,7 @@ interface RecommendPath {
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.scss']
 })
-export class RouteComponent implements OnInit {
+export class RouteComponent implements OnInit, OnDestroy {
 
   private setting = {
     element: {
@@ -29,32 +29,43 @@ export class RouteComponent implements OnInit {
   userRoles: UserRole[] = [];
   path: string = "/";
 
+  intervalMs = 3000; //3s
+  interval: any;
+
   constructor(
     private authenticatorService: AuthenticatorService,
     private utils: UtilsService,
     private matDialog: MatDialog
   ) { }
 
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
+  }
+
   ngOnInit() {
     this.updateRoutes();
     this.updateUserRoles();
+
+    this.interval = setInterval(() => {
+      this.updateRoutes();
+      this.updateUserRoles();
+    }, this.intervalMs);
   }
 
   updateUserRoles(): void {
     this.authenticatorService.getUserRoles().pipe(first()).subscribe(
       res => {
         this.userRoles = res
-      },
-      error => { }
+      }
     );
   }
 
   updateRoutes(): void {
     this.authenticatorService.getRoutes().pipe(first()).subscribe(
       res => {
-        this.routes = res;
-      },
-      error => { }
+        if(JSON.stringify(this.routes) !== JSON.stringify(res))
+          this.routes = res;
+      }
     );
   }
 
@@ -157,7 +168,7 @@ export class RouteComponent implements OnInit {
   exportRoute() {
     let dialog = this.matDialog.open(InputDialog, {
       width: '100%',
-      data: { title: 'Save as', message: 'File Name' } 
+      data: { title: 'Save as', message: 'File Name', defaultValue: 'RouteList' } 
     })
     
     dialog.afterClosed().pipe(first()).subscribe(
@@ -168,8 +179,106 @@ export class RouteComponent implements OnInit {
     );
   }
 
-  async replaceRoute() {
+  async replaceRoutes() {
     let file = await this.utils.uploadFile('application/json');
+    if(file.type === 'application/json') {
+      let newRoutes: Route[] = JSON.parse(file.value);
+      let matchRoutes: Route[] = [];
+
+      //add new route
+      await newRoutes.forEach(async e => {
+        let match = this.routes.find(r => this.equal(e, r));
+        if(match)
+          matchRoutes.push(match);
+        else
+          await this.postRoute(e);
+      })
+
+      //remove not match route
+      await this.routes.forEach(async e => {
+        let match = matchRoutes.find(r => this.equal(e, r))
+        if(!match)
+          await this.removeRoute(e);
+      })
+    }
   }
 
+  async patchAndAddRoutes() {
+    let file = await this.utils.uploadFile('application/json');
+    if(file.type === 'application/json') {
+      let newRoutes: Route[] = JSON.parse(file.value);
+
+      //add if missing
+      await newRoutes.forEach(async e => {
+        let match = this.routes.find(r => this.equal(e, r));
+        let matchById = this.routes.find(r => r.id = e.id);
+
+        if(matchById)
+          await this.patchRoute(e);
+
+        if(!match)
+          await this.postRoute(e);
+      })
+    }
+  }
+
+  async addNewOnlyRoutes() {
+    let file = await this.utils.uploadFile('application/json');
+    if(file.type === 'application/json') {
+      let newRoutes: Route[] = JSON.parse(file.value);
+
+      //add if missing
+      await newRoutes.forEach(async e => {
+        let match = this.routes.find(r => this.equal(e, r));
+
+        if(!match)
+          await this.postRoute(e);
+      })
+    }
+  }
+
+  equal(route1: Route, route2: Route) {
+    let r1 = structuredClone(route1);
+    let r2 = structuredClone(route2);
+    r1.id = 0;
+    r2.id = 0;
+    return JSON.stringify(r1) === JSON.stringify(r2);
+  }
+
+  async patchRoute(route: Route) {
+    if(route.id) {
+      return new Promise<void>((resolve, reject) => {
+        this.authenticatorService.patchRoute(route).pipe(first()).subscribe(
+          res => {},
+          error => {},
+          () => resolve()
+        );
+      })
+    }
+  }
+
+  async postRoute(route: Route) {
+    if(route.id) {
+      return new Promise<void>((resolve, reject) => {
+        this.authenticatorService.postRoute(route).pipe(first()).subscribe(
+          res => {},
+          error => {},
+          () => resolve()
+        );
+      })
+    }
+  }
+
+  async removeRoute(route: Route) {
+    if(route.id) {
+      return new Promise<void>((resolve, reject) => {
+        this.authenticatorService.deleteRoute(route.id!).pipe(first()).subscribe(
+          res => {},
+          error => {},
+          () => resolve()
+        )
+      })
+    }
+  }
+  
 }

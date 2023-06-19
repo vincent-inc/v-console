@@ -24,6 +24,8 @@ export class InputDialog implements OnInit {
 
     if(this.data.no || this.data.no === '')
       this.no = this.data.no;
+
+    this.input = this.data.defaultValue ?? '';
   }
 
   getWidth(): number

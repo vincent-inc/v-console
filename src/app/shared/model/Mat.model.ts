@@ -17,5 +17,6 @@ export interface DialogInput {
     message?: string,
     yes?: string,
     no?: string,
-    multipleLine?: boolean
+    multipleLine?: boolean,
+    defaultValue?: any
 }
