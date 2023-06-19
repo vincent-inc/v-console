@@ -1,7 +1,12 @@
 <div class="margin-center">
   <h1 class="text-center">Routing</h1>
   <ul>
-    <li><button mat-raised-button color="primary" (click)="updateRoutes()">Re-fetch route</button></li>
+    <li class="command_button">
+      <button mat-raised-button color="primary" (click)="updateRoutes()">Re-fetch route</button>
+      <button mat-raised-button color="primary" (click)="exportRoute()">Export route</button>
+      <button mat-raised-button color="primary" (click)="replaceRoute()">Import route (replace)</button>
+      <button mat-raised-button color="primary">Import route (patch)</button>
+    </li>
     <hr>
     <li>
       <button mat-fab color="primary" (click)="goBackRoute()">

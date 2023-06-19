@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs';
+import { InputDialog } from 'src/app/shared/dialog/input-dialog/input-dialog.component';
 import { Route, UserRole } from 'src/app/shared/model/Authenticator.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
+import { UtilsService } from 'src/app/shared/service/Utils.service';
 
 interface RecommendPath {
   path: string;
@@ -16,11 +19,21 @@ interface RecommendPath {
 })
 export class RouteComponent implements OnInit {
 
+  private setting = {
+    element: {
+      dynamicDownload: HTMLElement
+    }
+  }
+
   routes: Route[] = [];
   userRoles: UserRole[] = [];
   path: string = "/";
 
-  constructor(private authenticatorService: AuthenticatorService) { }
+  constructor(
+    private authenticatorService: AuthenticatorService,
+    private utils: UtilsService,
+    private matDialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.updateRoutes();
@@ -32,16 +45,16 @@ export class RouteComponent implements OnInit {
       res => {
         this.userRoles = res
       },
-      error => {}
+      error => { }
     );
   }
 
   updateRoutes(): void {
     this.authenticatorService.getRoutes().pipe(first()).subscribe(
       res => {
-        this.routes = res;        
+        this.routes = res;
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -53,7 +66,7 @@ export class RouteComponent implements OnInit {
     })
     return filterRoutes;
   }
-  
+
   getFilterRoutes(): Route[] {
     let filterRoutes: Route[];
     filterRoutes = this.routes.filter((r) => {
@@ -68,7 +81,7 @@ export class RouteComponent implements OnInit {
     let numberOfDash: number = this.path.split('/').length - 1;
     filterRoutes.forEach(e => {
       let splits = e.path!.split('/');
-      while(splits.length > numberOfDash + 1)
+      while (splits.length > numberOfDash + 1)
         splits.pop();
       let rPath = splits[splits.length - 1];
       let fPath = splits.join('/');
@@ -78,8 +91,8 @@ export class RouteComponent implements OnInit {
         fullPath: fPath
       }
 
-      if(!recommendPaths.some(e => e.fullPath === recommendPath.fullPath))
-        recommendPaths.push({path: rPath, fullPath: fPath});
+      if (!recommendPaths.some(e => e.fullPath === recommendPath.fullPath))
+        recommendPaths.push({ path: rPath, fullPath: fPath });
 
     })
 
@@ -91,9 +104,8 @@ export class RouteComponent implements OnInit {
   }
 
   editRoute(route: Route): void {
-    for(let i = 0; i < this.routes.length; i++) {
-      if(this.routes[i].id === route.id)
-      {
+    for (let i = 0; i < this.routes.length; i++) {
+      if (this.routes[i].id === route.id) {
         this.routes[i] = route;
         break;
       }
@@ -126,19 +138,38 @@ export class RouteComponent implements OnInit {
   }
 
   goBackRoute(): void {
-    if(this.path.charAt(this.path.length - 1) === '/')
+    if (this.path.charAt(this.path.length - 1) === '/')
       this.path = this.path.substring(0, this.path.lastIndexOf("/"));
-    
+
     this.path = this.path.substring(0, this.path.lastIndexOf("/")) + '/';
 
-    if(this.path === '')
+    if (this.path === '')
       this.path = '/';
   }
 
   validatorFn(value: string) {
-    if(!value.startsWith('/'))
+    if (!value.startsWith('/'))
       return "Path need to start with /"
 
     return "";
   }
+
+  exportRoute() {
+    let dialog = this.matDialog.open(InputDialog, {
+      width: '100%',
+      data: { title: 'Save as', message: 'File Name' } 
+    })
+    
+    dialog.afterClosed().pipe(first()).subscribe(
+      res => {
+        if (res)
+          this.utils.saveFile(res + '.json', "application/json", JSON.stringify(this.routes));
+      }
+    );
+  }
+
+  async replaceRoute() {
+    let file = await this.utils.uploadFile('application/json');
+  }
+
 }

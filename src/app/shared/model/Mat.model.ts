@@ -11,3 +11,11 @@ export interface Time {
     minute?: number;
     second?: number;
 }
+
+export interface DialogInput {
+    title?: string,
+    message?: string,
+    yes?: string,
+    no?: string,
+    multipleLine?: boolean
+}
