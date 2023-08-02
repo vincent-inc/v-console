@@ -52,6 +52,8 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
   @Input()
   autoResize: boolean = false;
 
+  defaultTextColor = 'black';
+
   constructor() { }
 
   ngOnInit() {
