@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { NgEssentialModule } from './shared/module/ng-essential.module';
@@ -20,6 +18,8 @@ import { RoutePanelComponent } from './Authentication/route/route-panel/route-pa
 import { UserRoleComponent } from './Authentication/user-role/user-role.component';
 import { UsersComponent } from './Authentication/users/users.component';
 import { QuestionComponent } from './vgame/question/question.component';
+
+export const defaultTextColor = 'white';
 
 @NgModule({
   declarations: [

@@ -168,7 +168,7 @@ export class RouteComponent implements OnInit, OnDestroy {
   exportRoute() {
     let dialog = this.matDialog.open(InputDialog, {
       width: '100%',
-      data: { title: 'Save as', message: 'File Name', defaultValue: 'RouteList' } 
+      data: { title: 'Save as', message: 'File Name', defaultValue: 'RouteList', input: 'Route'} 
     })
     
     dialog.afterClosed().pipe(first()).subscribe(

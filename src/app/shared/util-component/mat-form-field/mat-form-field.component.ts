@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { defaultTextColor } from 'src/app/app.module';
 
 @Component({
   selector: 'app-mat-form-field',
@@ -57,6 +58,7 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
+    this.defaultTextColor = defaultTextColor;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

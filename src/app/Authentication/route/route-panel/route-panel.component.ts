@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs';
 import { ConfirmDialog } from 'src/app/shared/dialog/confirm-dialog/confirm-dialog.component';
 import { Route, UserRole } from 'src/app/shared/model/Authenticator.model';
+import { MatOption } from 'src/app/shared/model/Mat.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
 
 @Component({
@@ -11,6 +12,31 @@ import { AuthenticatorService } from 'src/app/shared/service/Authenticator.servi
   styleUrls: ['./route-panel.component.scss']
 })
 export class RoutePanelComponent implements OnInit {
+
+  options: MatOption[] = [
+    {value: '.*', valueLabel: 'Anything wild card'},
+    {value: '[abc]', valueLabel: 'Matches a or b, or c.'},
+    {value: '[^abc]', valueLabel: 'Negation, matches everything except a, b, or c.'},
+    {value: '[a-c]', valueLabel: 'Range, matches a or b, or c.'},
+    {value: '[a-c[f-h]]', valueLabel: 'Union, matches a, b, c, f, g, h.'},
+    {value: '[a-c&&[b-c]]', valueLabel: 'Intersection, matches b or c.'},
+    {value: '[a-c&&[^b-c]]', valueLabel: 'Subtraction, matches a.'},
+    {value: '.', valueLabel: 'Any character.'},
+    {value: '\\d', valueLabel: 'A digit: [0-9]'},
+    {value: '\\D', valueLabel: 'A non-digit: [^0-9]'},
+    {value: '\\s', valueLabel: 'A whitespace character: [ \\t\\n\\x0B\\f\\r]'},
+    {value: '\\S', valueLabel: 'A non-whitespace character: [^\\s]'},
+    {value: '\\w', valueLabel: 'A word character: [a-zA-Z_0-9]'},
+    {value: '\\W', valueLabel: 'A non-word character: [^\\w]'},
+    {value: '^', valueLabel: 'The beginning of a line.'},
+    {value: '$', valueLabel: 'The end of a line.'},
+    {value: '\\b', valueLabel: 'A word boundary.'},
+    {value: '\\B', valueLabel: 'A non-word boundary.'},
+    {value: '\\A', valueLabel: 'The beginning of the input.'},
+    {value: '\\G', valueLabel: 'The end of the previous match.'},
+    {value: '\\Z', valueLabel: 'The end of the input but for the final terminator, if any.'},
+    {value: '\\z', valueLabel: 'The end of the input.'},
+  ]
 
   @Input()
   route!: Route;
@@ -25,6 +51,8 @@ export class RoutePanelComponent implements OnInit {
 
   @Output()
   deleteEvent: EventEmitter<Route> = new EventEmitter();
+
+  wildCard: string = '';
 
   constructor(private authenticatorService: AuthenticatorService, private matDialog: MatDialog) { }
 
@@ -70,5 +98,9 @@ export class RoutePanelComponent implements OnInit {
 
   removeRole(i: number): void {
     this.routeCopy.roles!.splice(i, 1);
+  }
+
+  addWildCard() {
+    this.routeCopy.path += this.wildCard;
   }
 }

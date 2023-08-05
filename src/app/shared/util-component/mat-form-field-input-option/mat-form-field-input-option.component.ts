@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { MatFormFieldComponent } from '../mat-form-field/mat-form-field.component';
+import { MatOption } from '../../model/Mat.model';
 
 @Component({
   selector: 'app-mat-form-field-input-option',
@@ -10,7 +11,7 @@ import { MatFormFieldComponent } from '../mat-form-field/mat-form-field.componen
 export class MatFormFieldInputOptionComponent extends MatFormFieldComponent {
 
   @Input()
-  options: {value: any, valueLabel: string, disable?: boolean}[] = [];
+  options: MatOption[] = [];
 
   @Input()
   noneLabel = 'None';

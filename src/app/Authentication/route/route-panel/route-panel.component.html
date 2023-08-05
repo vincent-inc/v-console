@@ -41,13 +41,27 @@
         ></app-mat-form-field-input>
       </li>
       <li>
-        <mat-form-field style="width: 100%;" appearance="fill">
-          <mat-label>Secure</mat-label>
-          <mat-select [(ngModel)]="routeCopy.secure" required>
-            <mat-option [value]="true">TRUE</mat-option>
-            <mat-option [value]="false">FALSE</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <app-mat-form-field-input-option
+        (valueOutput)="wildCard = $event"
+        label="Wild Card ^"
+        noneLabel=""
+        [options]="options"
+        styleWidth="80%"
+        ></app-mat-form-field-input-option>
+        <button mat-raised-button color="primary" style="width: 20%;" (click)="addWildCard()">Add</button>
+      </li>
+      <li>
+        <app-mat-form-field-input-option
+        label="Secure"
+        [value]="routeCopy.secure + ''" (valueOutput)="routeCopy.secure = $event"
+        noneLabel=""
+        [required]="true"
+        [options]="[
+          {value: 'true', valueLabel: 'TRUE'},
+          {value: 'false', valueLabel: 'FALSE'}
+        ]"
+        styleWidth="100%"
+        ></app-mat-form-field-input-option>
       </li>
       <li *ngFor="let role of routeCopy.roles; let i = index">
         <mat-form-field style="width: 100%;" appearance="fill">
