@@ -10,7 +10,7 @@ import HttpClientUtils from '../model/HttpClientUtils.model';
 })
 export class VGameService {
 
-  private prefix = "vgame"
+  private prefix = "vgame";
 
   constructor(
     private httpClient: HttpClient,
