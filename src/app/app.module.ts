@@ -18,6 +18,7 @@ import { RoutePanelComponent } from './Authentication/route/route-panel/route-pa
 import { UserRoleComponent } from './Authentication/user-role/user-role.component';
 import { UsersComponent } from './Authentication/users/users.component';
 import { QuestionComponent } from './vgame/question/question.component';
+import { VenkinsHomeComponent } from './Venkins/venkins-home/venkins-home.component';
 
 export const defaultTextColor = 'white';
 
@@ -34,7 +35,8 @@ export const defaultTextColor = 'white';
     RoutePanelComponent,
     UsersComponent,
     UserRoleComponent,
-    QuestionComponent
+    QuestionComponent,
+    VenkinsHomeComponent
   ],
   imports: [
     NgEssentialModule,

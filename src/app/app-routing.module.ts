@@ -8,6 +8,7 @@ import { RouteComponent } from './Authentication/route/route.component';
 import { UserRoleComponent } from './Authentication/user-role/user-role.component';
 import { UsersComponent } from './Authentication/users/users.component';
 import { QuestionComponent } from './vgame/question/question.component';
+import { VenkinsHomeComponent } from './Venkins/venkins-home/venkins-home.component';
 
 const routes: Routes = [
   {
@@ -44,7 +45,17 @@ const routes: Routes = [
         component: RequestSenderComponent
       }
     ]
-    
+  },
+
+  // TOOL
+  {
+    path: 'venkins',
+    children: [
+      {
+        path: 'home',
+        component: VenkinsHomeComponent
+      }
+    ]
   },
 
   // Authentication
