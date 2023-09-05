@@ -8,25 +8,21 @@ import { LobbyDialog } from '../dialog/lobby-dialog/lobby-dialog.component';
 import { UserDialog } from '../dialog/user-dialog/user-dialog.component';
 import { QuestionDialog } from '../dialog/question-dialog/question-dialog.component';
 
+const list = [
+  ConfirmDialog,
+  InputDialog,
+  LobbyDialog,
+  UserDialog,
+  QuestionDialog
+]
+
 @NgModule({
-  declarations: [
-    ConfirmDialog,
-    InputDialog,
-    LobbyDialog,
-    UserDialog,
-    QuestionDialog
-  ],
+  declarations: list,
   imports: [
     NgMaterialModule,
     NgEssentialModule,
     NgComponentModule
   ],
-  exports: [
-    ConfirmDialog,
-    InputDialog,
-    LobbyDialog,
-    UserDialog,
-    QuestionDialog
-  ]
+  exports: list
 })
 export class NgDialogModule { }

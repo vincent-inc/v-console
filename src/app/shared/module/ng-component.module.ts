@@ -13,39 +13,30 @@ import { MatFormFieldTextAreaComponent } from '../util-component/mat-form-field-
 import { MatFormFieldComponent } from '../util-component/mat-form-field/mat-form-field.component';
 import { MatFormFieldInputTimeComponent } from '../util-component/mat-form-field-input-time/mat-form-field-input-time.component';
 import { MatFormFieldInputOptionComponent } from '../util-component/mat-form-field-input-option/mat-form-field-input-option.component';
+import { MatFormFieldListInputComponent } from '../util-component/mat-form-field-list-input/mat-form-field-list-input.component';
+
+const list = [
+  CopyToClipboardUtilComponent,
+  InputTypeSwitchComponent,
+  MatFormFieldInputComponent,
+  CopyToClipboardDirective,
+  FilterNamePipe,
+  FilterNameReversePipe,
+  MatTableComponent,
+  MatFormFieldComponent,
+  MatFormFieldGroupDirective,
+  MatFormFieldTextAreaComponent,
+  MatFormFieldInputTimeComponent,
+  MatFormFieldInputOptionComponent,
+  MatFormFieldListInputComponent
+]
 
 @NgModule({
-  declarations: [
-    CopyToClipboardUtilComponent,
-    InputTypeSwitchComponent,
-    MatFormFieldInputComponent,
-    CopyToClipboardDirective,
-    FilterNamePipe,
-    FilterNameReversePipe,
-    MatTableComponent,
-    MatFormFieldComponent,
-    MatFormFieldGroupDirective,
-    MatFormFieldTextAreaComponent,
-    MatFormFieldInputTimeComponent,
-    MatFormFieldInputOptionComponent
-  ],
+  declarations: list,
   imports: [
     NgMaterialModule,
     NgEssentialModule
   ],
-  exports: [
-    CopyToClipboardUtilComponent,
-    InputTypeSwitchComponent,
-    MatFormFieldInputComponent,
-    CopyToClipboardDirective,
-    FilterNamePipe,
-    FilterNameReversePipe,
-    MatTableComponent,
-    MatFormFieldComponent,
-    MatFormFieldGroupDirective,
-    MatFormFieldTextAreaComponent,
-    MatFormFieldInputTimeComponent,
-    MatFormFieldInputOptionComponent
-  ]
+  exports: list
 })
 export class NgComponentModule { }

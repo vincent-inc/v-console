@@ -4,7 +4,10 @@
     [(ngModel)]="value" 
     (ngModelChange)="emitValue()" 
     [disabled]="disable" 
-    [required]="required">
+    [required]="required"
+    (opened)="emitOpened()"
+    (closed)="emitClosed()"
+    (selectionChange)="emitSelectionChange($event)">
     <mat-option *ngIf="noneLabel" value="">{{noneLabel}}</mat-option>
     <mat-option *ngFor="let option of options" [value]="option.value" [disabled]="option.disable">{{option.valueLabel}}</mat-option>
   </mat-select>

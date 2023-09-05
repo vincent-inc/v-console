@@ -84,7 +84,7 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
   }
 
   isValidInput(): boolean {
-    if (this.required && this.value === '')
+    if (this.required && !this.value)
       return false;
 
     if(this.internalError)
@@ -142,5 +142,9 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
 
   isValueNumber(): boolean {
     return typeof this.value === 'number';
+  }
+
+  resetValue(): void {
+    this.value = structuredClone(this.valueCopy);
   }
 }
