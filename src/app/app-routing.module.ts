@@ -9,6 +9,7 @@ import { UserRoleComponent } from './Authentication/user-role/user-role.componen
 import { UsersComponent } from './Authentication/users/users.component';
 import { QuestionComponent } from './vgame/question/question.component';
 import { VenkinsHomeComponent } from './Venkins/venkins-home/venkins-home.component';
+import { ConfigMapComponent } from './Venkins/config-map/config-map.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: VenkinsHomeComponent
+      },
+      {
+        path: 'config_map',
+        component: ConfigMapComponent
       }
     ]
   },
