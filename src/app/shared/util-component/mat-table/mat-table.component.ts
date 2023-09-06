@@ -91,4 +91,11 @@ export class MatTableComponent implements OnInit, OnChanges {
   editRow(row: MatRow) {
     this.onEditRow.emit(row);
   }
+
+  getNoDataRowMessage() {
+    if(this.matRows.length > 0)
+      return `No data matching the filter ${this.filter}`;
+    else
+      return 'Table have no data at the moment';
+  }
 }
