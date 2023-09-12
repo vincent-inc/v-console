@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 .lh
 src/app/shared/.stfolder
+angular.json
