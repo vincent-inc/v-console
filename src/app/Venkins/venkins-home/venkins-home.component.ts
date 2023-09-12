@@ -11,6 +11,8 @@ import { VenkinsService } from 'src/app/shared/service/Venkins.service';
 export class VenkinsHomeComponent implements OnInit {
 
   configModels: ConfigModel[] = [];
+  buildModel: any[] = [];
+  buildModels: any[] = [];
 
   constructor(
     private venkinsService: VenkinsService
@@ -28,4 +30,15 @@ export class VenkinsHomeComponent implements OnInit {
     );
   }
 
+  updateBuildModel(configModel: ConfigModel) {
+    this.buildModel = [];
+
+    for (const key of configModel.possibleReplaceKeys!) {
+      this.buildModel.push([key, ""]);
+    }
+  }
+
+  trackByIndex(index: number, obj: any): any {
+    return index;
+  }
 }

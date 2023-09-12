@@ -7,11 +7,17 @@
         <ul class="box">
           <li><h2 class="text-center">Config map</h2></li>
           <ng-container *ngFor="let model of configModels" >
-            <button mat-raised-button color="primary">{{model.name}}</button>
+            <button mat-raised-button color="primary" (click)="updateBuildModel(model)">{{model.name}}</button>
           </ng-container>
         </ul>
         <ul class="box">
           <li><h2>Possible replacement variable</h2></li>
+          <li *ngFor="let model of buildModel; let i = index; trackBy: trackByIndex;">
+            <app-mat-form-field-input
+            [label]="model[0]"
+            (valueOutput)="model[1] = $event"
+            ></app-mat-form-field-input>
+          </li>
         </ul>
       </li>
       <li><button mat-raised-button color="primary" style="width: 100%; margin-bottom: 10px;">Build</button></li>
