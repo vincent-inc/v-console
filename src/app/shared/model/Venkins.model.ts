@@ -11,3 +11,11 @@ export class MatConfigModel implements MatRow {
     id?: number;
     name?: string;
 }
+
+export interface JobRequest {
+    configName?: string;
+    configId?:   number;
+    path?:       string;
+    jobName?:    string;
+    replaceMap?: Object;
+}

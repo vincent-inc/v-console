@@ -105,4 +105,13 @@ export class UtilsService {
 
     return null;
   }
+
+  static setField(obj: Object, fieldName: string, value: any) {
+    Object.defineProperty(obj, fieldName, {
+      value: value,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    });
+  }
 }

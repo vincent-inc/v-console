@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs';
-import { ConfigModel } from 'src/app/shared/model/Venkins.model';
+import { config, first } from 'rxjs';
+import { ConfigModel, JobRequest } from 'src/app/shared/model/Venkins.model';
+import { UtilsService } from 'src/app/shared/service/Utils.service';
 import { VenkinsService } from 'src/app/shared/service/Venkins.service';
 
 @Component({
@@ -11,8 +12,9 @@ import { VenkinsService } from 'src/app/shared/service/Venkins.service';
 export class VenkinsHomeComponent implements OnInit {
 
   configModels: ConfigModel[] = [];
-  buildModel: any[] = [];
-  buildModels: any[] = [];
+  buildModelTemplate: any[] = [];
+  jobRequest: JobRequest = {};
+  jobRequests: any[] = [];
 
   constructor(
     private venkinsService: VenkinsService
@@ -30,15 +32,40 @@ export class VenkinsHomeComponent implements OnInit {
     );
   }
 
-  updateBuildModel(configModel: ConfigModel) {
-    this.buildModel = [];
+  trackByIndex(index: number, obj: any): any {
+    return index;
+  }
 
+  updateBuildModel(configModel: ConfigModel) {
+    this.buildModelTemplate = [];
+    this.jobRequest = {
+      configId: configModel.id,
+      jobName: configModel.name
+    };
     for (const key of configModel.possibleReplaceKeys!) {
-      this.buildModel.push([key, ""]);
+      this.buildModelTemplate.push([key, ""]);
     }
   }
 
-  trackByIndex(index: number, obj: any): any {
-    return index;
+  onBuildModel() {
+    let replaceMap = {};
+    for(const map of this.buildModelTemplate) {
+      let key = map[0];
+      let value = map[1];
+      UtilsService.setField(replaceMap, key, value);
+    }
+    this.jobRequest.replaceMap = replaceMap;
+  }
+
+  addToList() {
+    this.jobRequests.push(structuredClone(this.jobRequest));
+  }
+
+  getJsonJobRequest() {
+    return JSON.stringify(this.jobRequest, null, "\t");
+  }
+
+  getJsonJobRequests() {
+    return JSON.stringify(this.jobRequests, null, "\t");
   }
 }

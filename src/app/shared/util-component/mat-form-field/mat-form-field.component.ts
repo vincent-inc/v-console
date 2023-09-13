@@ -45,6 +45,9 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
   disable: boolean = false;
 
   @Input()
+  fakeDisable: boolean = false;
+
+  @Input()
   width: number = 40;
 
   @Input()

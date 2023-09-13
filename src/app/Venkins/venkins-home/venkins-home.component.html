@@ -12,7 +12,23 @@
         </ul>
         <ul class="box">
           <li><h2>Possible replacement variable</h2></li>
-          <li *ngFor="let model of buildModel; let i = index; trackBy: trackByIndex;">
+          <li>
+            <app-mat-form-field-input
+            label="Path"
+            placeholder="Give jenkins path here"
+            [value]="jobRequest.path ?? ''"
+            (valueOutput)="jobRequest.path = $event"
+            ></app-mat-form-field-input>
+          </li>
+          <li>
+            <app-mat-form-field-input
+            label="Job Name"
+            placeholder="Give jenkins job a name here"
+            [value]="jobRequest.jobName ?? ''"
+            (valueOutput)="jobRequest.jobName = $event"
+            ></app-mat-form-field-input>
+          </li>
+          <li *ngFor="let model of buildModelTemplate; let i = index; trackBy: trackByIndex;">
             <app-mat-form-field-input
             [label]="model[0]"
             (valueOutput)="model[1] = $event"
@@ -20,16 +36,20 @@
           </li>
         </ul>
       </li>
-      <li><button mat-raised-button color="primary" style="width: 100%; margin-bottom: 10px;">Build</button></li>
+      <li><button mat-raised-button color="primary" style="width: 100%; margin-bottom: 10px;" (click)="onBuildModel()">Build</button></li>
       <li>
         <app-mat-form-field-text-area
         styleWidth="100%"
+        [value]="getJsonJobRequest()"
+        [showCopyToClipboard]="true"
         ></app-mat-form-field-text-area>
       </li>
-      <li><button mat-raised-button color="primary" style="width: 100%; margin-bottom: 10px;">Add to list</button></li>
+      <li><button mat-raised-button color="primary" style="width: 100%; margin-bottom: 10px;" (click)="addToList()">Add to list</button></li>
       <li>
         <app-mat-form-field-text-area
         styleWidth="100%"
+        [value]="getJsonJobRequests()"
+        [showCopyToClipboard]="true"
         ></app-mat-form-field-text-area>
       </li>
     </ul>
