@@ -40,7 +40,7 @@ export class VenkinsHomeComponent implements OnInit {
     this.buildModelTemplate = [];
     this.jobRequest = {
       configId: configModel.id,
-      jobName: configModel.name
+      configName: configModel.name
     };
     for (const key of configModel.possibleReplaceKeys!) {
       this.buildModelTemplate.push([key, ""]);
