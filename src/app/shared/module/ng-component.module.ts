@@ -9,11 +9,13 @@ import { FilterNamePipe } from '../pipes/filter-name.pipe';
 import { FilterNameReversePipe } from '../pipes/filter-name-reverse.pipe';
 import { MatTableComponent } from '../util-component/mat-table/mat-table.component';
 import { MatFormFieldGroupDirective } from '../directive/mat-form-field-group.directive';
-import { MatFormFieldTextAreaComponent } from '../util-component/mat-form-field-text-area/mat-form-field-text-area.component';
+import { MatFormFieldInputTextAreaComponent } from '../util-component/mat-form-field-text-area/mat-form-field-input-text-area.component';
 import { MatFormFieldComponent } from '../util-component/mat-form-field/mat-form-field.component';
 import { MatFormFieldInputTimeComponent } from '../util-component/mat-form-field-input-time/mat-form-field-input-time.component';
 import { MatFormFieldInputOptionComponent } from '../util-component/mat-form-field-input-option/mat-form-field-input-option.component';
-import { MatFormFieldListInputComponent } from '../util-component/mat-form-field-list-input/mat-form-field-list-input.component';
+import { MatFormFieldInputListComponent } from '../util-component/mat-form-field-input-list/mat-form-field-input-list.component';
+import { MatFormFieldInputDynamicComponent } from '../util-component/mat-form-field-input-dynamic/mat-form-field-input-dynamic.component';
+import { MatFormFieldInputListOptionComponent } from '../util-component/mat-form-field-input-list-option/mat-form-field-input-list-option.component';
 
 const list = [
   CopyToClipboardUtilComponent,
@@ -25,10 +27,12 @@ const list = [
   MatTableComponent,
   MatFormFieldComponent,
   MatFormFieldGroupDirective,
-  MatFormFieldTextAreaComponent,
+  MatFormFieldInputTextAreaComponent,
   MatFormFieldInputTimeComponent,
   MatFormFieldInputOptionComponent,
-  MatFormFieldListInputComponent
+  MatFormFieldInputListComponent,
+  MatFormFieldInputDynamicComponent,
+  MatFormFieldInputListOptionComponent
 ]
 
 @NgModule({

@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, Type, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs';
+import { Observable, first } from 'rxjs';
 
 export interface File {
   name: string,
@@ -104,5 +104,51 @@ export class UtilsService {
     }
 
     return null;
+  }
+
+  static async ObservableToPromise<T>(observable: Observable<T>, nextFn?: (value: T) => void, errorFn?: (error: any) => void): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      observable.pipe(first()).subscribe({
+        next: (v) => {
+          if(nextFn)
+            nextFn(v);
+          resolve(v);
+        },
+        error: (e) => {
+          if(errorFn)
+            errorFn(e);
+          reject(e);
+        }
+      })
+    })
+  }
+
+  static fixPrototype<T>(classEntity: any) {
+    return <T>(source: Observable<T>): Observable<T> => {
+      return new Observable(subscriber => {
+        source.subscribe({
+          next(value) {
+            if(value !== undefined && value !== null) {
+              Object.setPrototypeOf(value, classEntity.prototype);
+            }
+            subscriber.next(value);
+          },
+          error(error) {
+            subscriber.error(error);
+          },
+          complete() {
+            subscriber.complete();
+          }
+        })
+      });
+    };
+  } 
+
+  static createObject<T>(_createClass: {new (): T}): T {
+    return new _createClass();
+  }
+
+  static getRandomInt(max: number) {
+    return Math.floor(Math.random() * max);
   }
 }

@@ -7,13 +7,19 @@ import { NgComponentModule } from './ng-component.module';
 import { LobbyDialog } from '../dialog/lobby-dialog/lobby-dialog.component';
 import { UserDialog } from '../dialog/user-dialog/user-dialog.component';
 import { QuestionDialog } from '../dialog/question-dialog/question-dialog.component';
+import { OrganizationRoleDialog } from '../dialog/organization/organization-role-dialog/organization-role-dialog.component';
+import { ObjectDialog } from '../dialog/object-dialog/object-dialog.component';
+import { OrganizationUserDialog } from '../dialog/organization/organization-user-dialog/organization-user-dialog.component';
 
 const list = [
   ConfirmDialog,
   InputDialog,
   LobbyDialog,
   UserDialog,
-  QuestionDialog
+  QuestionDialog,
+  OrganizationRoleDialog,
+  ObjectDialog,
+  OrganizationUserDialog
 ]
 
 @NgModule({

@@ -1,4 +1,3 @@
-import { MatRow } from "./Mat.model";
 
 export interface ConfigModel {
     id?:                  number;
@@ -7,7 +6,7 @@ export interface ConfigModel {
     file:                string;
 }
 
-export class MatConfigModel implements MatRow {
+export class MatConfigModel {
     id?: number;
     name?: string;
 }

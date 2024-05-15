@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { MatFormFieldTextAreaComponent } from './mat-form-field-text-area.component';
+import { OpenIdComponent } from './openId.component';
 
-describe('MatFormFieldTextAreaComponent', () => {
-  let component: MatFormFieldTextAreaComponent;
-  let fixture: ComponentFixture<MatFormFieldTextAreaComponent>;
+describe('OpenIdComponent', () => {
+  let component: OpenIdComponent;
+  let fixture: ComponentFixture<OpenIdComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MatFormFieldTextAreaComponent ]
+      declarations: [ OpenIdComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MatFormFieldTextAreaComponent);
+    fixture = TestBed.createComponent(OpenIdComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

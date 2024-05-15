@@ -20,6 +20,7 @@ import { UsersComponent } from './Authentication/users/users.component';
 import { QuestionComponent } from './vgame/question/question.component';
 import { VenkinsHomeComponent } from './Venkins/venkins-home/venkins-home.component';
 import { ConfigMapComponent } from './Venkins/config-map/config-map.component';
+import { OpenIdComponent } from './openId/openId.component';
 
 export const defaultTextColor = 'white';
 
@@ -38,7 +39,8 @@ export const defaultTextColor = 'white';
     UserRoleComponent,
     QuestionComponent,
     VenkinsHomeComponent,
-    ConfigMapComponent
+    ConfigMapComponent,
+    OpenIdComponent
   ],
   imports: [
     NgEssentialModule,

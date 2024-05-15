@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../shared/service/Authenticator.service';
+import { OpenIdService } from '../shared/service/OpenId.service';
 
 @Component({
   selector: 'app-side-drawer',
@@ -8,9 +9,14 @@ import { AuthenticatorService } from '../shared/service/Authenticator.service';
 })
 export class SideDrawerComponent implements OnInit {
 
-  constructor(public authenticatorService: AuthenticatorService) { }
+  constructor(public authenticatorService: AuthenticatorService, public openIdService: OpenIdService) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.authenticatorService.logoutWithoutReroute();
+    this.openIdService.logoutFlow();
   }
 
 }

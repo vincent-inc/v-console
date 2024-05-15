@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, forwardRef } from '@ang
 import { MatFormFieldComponent } from '../mat-form-field/mat-form-field.component';
 import { MatOption } from '../../model/Mat.model';
 import { MatSelectChange } from '@angular/material/select';
+import { UtilsService } from '../../service/Utils.service';
 
 @Component({
   selector: 'app-mat-form-field-input-option',
@@ -28,6 +29,18 @@ export class MatFormFieldInputOptionComponent extends MatFormFieldComponent {
 
   constructor() {
     super();
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.populateOptions();
+  }
+
+  populateOptions() {
+    this.options.forEach(e => {
+      if(UtilsService.isEqual(e.value, this.value))
+        e.value = this.value;
+    })
   }
 
   emitOpened() {

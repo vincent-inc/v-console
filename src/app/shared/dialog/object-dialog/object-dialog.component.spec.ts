@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { MatFormFieldListInputComponent } from './mat-form-field-list-input.component';
+import { ObjectDialog } from './object-dialog.component';
 
-describe('MatFormFieldListInputComponent', () => {
-  let component: MatFormFieldListInputComponent;
-  let fixture: ComponentFixture<MatFormFieldListInputComponent>;
+describe('ObjectDialogComponent', () => {
+  let component: ObjectDialog;
+  let fixture: ComponentFixture<ObjectDialog>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MatFormFieldListInputComponent ]
+      declarations: [ ObjectDialog ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MatFormFieldListInputComponent);
+    fixture = TestBed.createComponent(ObjectDialog);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

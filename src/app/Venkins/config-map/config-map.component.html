@@ -23,14 +23,14 @@
       ></app-mat-form-field-input>
     </li>
     <li>
-      <app-mat-form-field-text-area
+      <app-mat-form-field-input-text-area
       label="Xml config file"
       placeholder="Jenkins XML file"
       [value]="detailConfigModel.file"
       (valueOutput)="detailConfigModel.file = $event"
       [required]="true"
       styleWidth="100%"
-      ></app-mat-form-field-text-area>
+      ></app-mat-form-field-input-text-area>
     </li>
     <li *ngIf="!detailConfigModel.id">
       <button mat-raised-button color="primary" style="width: 100%;" (click)="addConfigMap()" [disabled]="!validForm">Add config map</button>

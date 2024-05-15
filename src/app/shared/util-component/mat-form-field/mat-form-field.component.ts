@@ -2,13 +2,14 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { defaultTextColor } from 'src/app/app.module';
+import { FixChangeDetection } from '../../directive/FixChangeDetection';
 
 @Component({
   selector: 'app-mat-form-field',
   templateUrl: './mat-form-field.component.html',
   styleUrls: ['./mat-form-field.component.scss']
 })
-export class MatFormFieldComponent implements OnInit, OnChanges {
+export class MatFormFieldComponent extends FixChangeDetection implements OnInit, OnChanges {
 
   @Input()
   value: string | number | any = '';
@@ -54,8 +55,17 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
   autoResize: boolean = false;
 
   defaultTextColor = 'black';
+  
+  //key capture
+  keyDown: string[] = [];
 
-  constructor() { }
+  //dynamic type
+  @Input()
+  blankObject?: any;
+
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
     this.defaultTextColor = defaultTextColor;
@@ -72,6 +82,10 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
 
   emitEnter(): void {
     this.onEnter.emit();
+  }
+
+  addKey(keybaordEvent: KeyboardEvent) {
+    console.log(keybaordEvent);
   }
 
   clear(): void {
@@ -140,11 +154,38 @@ export class MatFormFieldComponent implements OnInit, OnChanges {
     return typeof this.value === 'string';
   }
 
+  isValueMultipleStringLine(): boolean {
+    return typeof this.value === 'string' && this.value.includes("\n");
+  }
+
+  isValueNonMultipleStringLine(): boolean {
+    return typeof this.value === 'string' && !this.value.includes("\n");
+  }
+
   isValueNumber(): boolean {
     return typeof this.value === 'number';
   }
 
+  isValueBoolean(): boolean {
+    return typeof this.value === 'boolean';
+  }
+
   resetValue(): void {
     this.value = structuredClone(this.valueCopy);
+  }
+
+  isValueArray(): boolean {
+    return Array.isArray(this.value);
+  }
+
+  isValueObject(): boolean {
+    return typeof this.value === 'object';
+  }
+
+  isValuePrimitive(): boolean {
+    if(this.isValueArray() || this.isValueObject())
+      return false;
+    else
+      return true;
   }
 }

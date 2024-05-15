@@ -1,44 +1,36 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Organization } from '../model/Organization.model';
+import { Organization, OrganizationJoinRequest } from '../model/Organization.model';
 import { HttpClient } from '@angular/common/http';
-import { SettingService } from './Setting.service';
+import { ViesRestService } from './Rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizationService {
+export class OrganizationService extends ViesRestService<Organization> {
 
-  private prefix = "saturday"
+  protected override getPrefixes(): string[] {
+    return ['saturday', 'organizations'];
+  }
+
   selectedOrganizationId?: string;
 
-  constructor(
-    private httpClient: HttpClient,
-    private settingService: SettingService
-    ) { }
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
+  }
+}
 
-  public getOrganizations(): Observable<Organization[]> {
-    return this.httpClient.get<Organization[]>(`${this.settingService.getGatewayUrl()}/${this.prefix}/organizations`);
+@Injectable({
+  providedIn: 'root'
+})
+export class OrganizationJoinRequestService extends ViesRestService<OrganizationJoinRequest> {
+
+  protected override getPrefixes(): string[] {
+    return ['saturday', 'organizationJoinRequests'];
   }
 
-  public getOrganization(id: string): Observable<Organization> {
-    return this.httpClient.get<Organization>(`${this.settingService.getGatewayUrl()}/${this.prefix}/organizations/${id}`);
-  }
+  selectedOrganizationId?: string;
 
-  public postOrganization(organization: Organization): Observable<Organization> {
-    return this.httpClient.post<Organization>(`${this.settingService.getGatewayUrl()}/${this.prefix}/organizations`, organization);
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
   }
-
-  public putOrganization(organization: Organization): Observable<Organization> {
-    return this.httpClient.put<Organization>(`${this.settingService.getGatewayUrl()}/${this.prefix}/organizations/${organization.id}`, organization);
-  }
-
-  public patchOrganization(organization: Organization): Observable<Organization> {
-    return this.httpClient.patch<Organization>(`${this.settingService.getGatewayUrl()}/${this.prefix}/organizations/${organization.id}`, organization);
-  }
-
-  public deleteOrganization(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.settingService.getGatewayUrl()}/${this.prefix}/organizations/${id}`);
-  }
-
 }

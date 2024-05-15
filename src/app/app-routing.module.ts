@@ -10,11 +10,16 @@ import { UsersComponent } from './Authentication/users/users.component';
 import { QuestionComponent } from './vgame/question/question.component';
 import { VenkinsHomeComponent } from './Venkins/venkins-home/venkins-home.component';
 import { ConfigMapComponent } from './Venkins/config-map/config-map.component';
+import { OpenIdComponent } from './openId/openId.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'openId',
+    component: OpenIdComponent
   },
   {
     path: 'login',

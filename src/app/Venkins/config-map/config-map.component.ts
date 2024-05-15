@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs';
 import { FixChangeDetection } from 'src/app/shared/directive/FixChangeDetection';
-import { MatRow } from 'src/app/shared/model/Mat.model';
 import { ConfigModel, MatConfigModel } from 'src/app/shared/model/Venkins.model';
 import { VenkinsService } from 'src/app/shared/service/Venkins.service';
 
