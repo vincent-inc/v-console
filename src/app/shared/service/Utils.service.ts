@@ -151,4 +151,13 @@ export class UtilsService {
   static getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
   }
+
+  static setField(obj: Object, fieldName: string, value: any) {
+    Object.defineProperty(obj, fieldName, {
+      value: value,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    });
+  }
 }
