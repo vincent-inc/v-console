@@ -11,6 +11,7 @@ import { QuestionComponent } from './vgame/question/question.component';
 import { VenkinsHomeComponent } from './Venkins/venkins-home/venkins-home.component';
 import { ConfigMapComponent } from './Venkins/config-map/config-map.component';
 import { OpenIdComponent } from './openId/openId.component';
+import { AutoRouteComponent } from './Authentication/auto-route/auto-route.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,10 @@ const routes: Routes = [
       {
         path: 'route',
         component: RouteComponent
+      },
+      {
+        path: 'auto_route',
+        component: AutoRouteComponent
       },
       {
         path: 'users',
