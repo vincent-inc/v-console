@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs';
-import { MethodName, Path, Route, Swaggers, UserRole } from 'src/app/shared/model/Authenticator.model';
+import { SwaggerMethodName, SwaggerPath, Route, Swaggers, UserRole } from 'src/app/shared/model/Authenticator.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
 import { UtilsService } from 'src/app/shared/service/Utils.service';
 import { RouteDialog, RouteDialogData } from './route-dialog/route-dialog.component';
@@ -18,7 +18,7 @@ export class AutoRouteComponent implements OnInit {
   tempRoutes!: Route[];
   userRoles: UserRole[] = [];
   searchText: string = '';
-  blankPath: Path = new Path();
+  blankPath: SwaggerPath = new SwaggerPath();
 
   constructor(private authenticatorService: AuthenticatorService, private matDialog: MatDialog) { }
 
@@ -43,8 +43,8 @@ export class AutoRouteComponent implements OnInit {
     })
   }
 
-  processPath(paths: Path[]): Path[] {
-    let newPaths: Path[] = [];
+  processPath(paths: SwaggerPath[]): SwaggerPath[] {
+    let newPaths: SwaggerPath[] = [];
 
     paths.forEach(e => {
       if(!newPaths.some(path => path.path === e.path))
@@ -68,19 +68,26 @@ export class AutoRouteComponent implements OnInit {
 
     let absolutePath = `${prefix}/.*`;
     let swaggerMethods: string[] = [];
-    for(let method in MethodName) 
+    for(let method in SwaggerMethodName) 
       swaggerMethods.push(method);
     
     this.editRule(absolutePath, swaggerMethods);
   }
 
-  editRule(path: string, swaggerMethods: string[]) {
+  editRuleFromSwaggerPath(swaggerPath: SwaggerPath) {
+    let methods: string[] = [];
+    swaggerPath.method?.forEach(e => methods.push(e.name!));
+    this.editRule(swaggerPath.path!, methods, swaggerPath);
+  }
+
+  editRule(path: string, swaggerMethods: string[], swaggerPath?: SwaggerPath) {
     let selectedRoutes = this.getRoutes(path);
     let routeDialogData: RouteDialogData = {
       absolutePath: path,
       selectedRoutes: selectedRoutes,
       userRoles: this.userRoles,
-      swaggerMethods: swaggerMethods
+      swaggerMethods: swaggerMethods,
+      swaggerPath: swaggerPath
     }
 
     let dialog = this.matDialog.open(RouteDialog, {data: {routeDialogData}, width: "100%"});
@@ -108,6 +115,14 @@ export class AutoRouteComponent implements OnInit {
 
   isRouteChange() {
     return UtilsService.isNotEqual(this.routes, this.tempRoutes);
+  }
+
+  revert() {
+    this.tempRoutes = structuredClone(this.routes);
+  }
+
+  save() {
+
   }
 }
 

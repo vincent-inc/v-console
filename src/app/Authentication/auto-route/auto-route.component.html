@@ -2,8 +2,8 @@
   <h1 class="text-center">Auto Routing</h1>
   <ul>
     <li>
-      <button mat-raised-button color="primary" [disabled]="!isRouteChange()">Apply all Setting</button>
-      <button mat-raised-button color="primary" [disabled]="!isRouteChange()">Revert Change</button>
+      <button mat-raised-button color="primary" [disabled]="!isRouteChange()" (click)="save()">Apply all Setting</button>
+      <button mat-raised-button color="primary" [disabled]="!isRouteChange()" (click)="revert()">Revert Change</button>
     </li>
     <li>
       <app-mat-form-field-input
@@ -29,6 +29,7 @@
           [matRows]="processPath(swagger.paths)"
           [displayFilter]="true"
           [blankObject]="blankPath"
+          (onEditRow)="editRuleFromSwaggerPath($event)"
           ></app-mat-table>
         </mat-expansion-panel>
         <br>

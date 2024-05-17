@@ -13,6 +13,8 @@
   <ul>
     <li *ngFor="let route of routeDialogData.selectedRoutes; let i = index; trackBy: trackByIndex;">
       <ng-container *ngIf="route">
+        <h3>Description: {{getDescription(route)}}</h3>
+        <h3>Operation By Id: {{getOperationById(route)}}</h3>
         <app-route-panel
         [route]="route"
         [userRoles]="routeDialogData.userRoles"

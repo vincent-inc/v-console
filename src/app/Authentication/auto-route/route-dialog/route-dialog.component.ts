@@ -1,7 +1,7 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ObjectDialog, ObjectDialogData } from 'src/app/shared/dialog/object-dialog/object-dialog.component';
-import { MethodName, Route, UserRole } from 'src/app/shared/model/Authenticator.model';
+import { SwaggerMethodName, Route, UserRole, SwaggerPath } from 'src/app/shared/model/Authenticator.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
 
 export interface RouteDialogData {
@@ -9,6 +9,7 @@ export interface RouteDialogData {
   userRoles: UserRole[];
   absolutePath: string;
   swaggerMethods: string[];
+  swaggerPath?: SwaggerPath;
 }
 
 @Component({
@@ -72,4 +73,37 @@ export class RouteDialog implements OnInit, AfterContentChecked {
     let index = this.routeDialogData.selectedRoutes.findIndex(e => e.method === route.method);
     this.routeDialogData.selectedRoutes.splice(index, 1);
   }
+
+  getDescription(route: Route): string {
+    let description = 'None';
+    if(!this.routeDialogData.swaggerPath)
+      return description;
+
+    let method = route.method!;
+    this.routeDialogData.swaggerPath.method?.forEach(e => {
+      if(e.name === method) {
+        description = e.summary ?? 'None';
+        return;
+      }
+    })
+
+    return description;
+  }
+
+  getOperationById(route: Route): string {
+    let operationById = 'None';
+    if(!this.routeDialogData.swaggerPath)
+      return operationById;
+
+    let method = route.method!;
+    this.routeDialogData.swaggerPath.method?.forEach(e => {
+      if(e.name === method) {
+        operationById = e.operationId ?? 'None';
+        return;
+      }
+    })
+
+    return operationById;
+  }
+  
 }

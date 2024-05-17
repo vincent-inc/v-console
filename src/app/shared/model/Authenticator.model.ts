@@ -91,35 +91,35 @@ export interface OpenIdRequest {
 export interface Swaggers {
     serviceName: string;
     prefix:      string;
-    paths:       Path[];
+    paths:       SwaggerPath[];
 }
 
-export class Path {
+export class SwaggerPath {
     @MatTableSetting("Absolute Path (with Regrex)")
     path?:   string;
 
     @MatTableHide(true)
-    method?: Method[];
+    method?: SwaggerMethod[];
 
-    constructor(path?: string, method?: Method[]) {
+    constructor(path?: string, method?: SwaggerMethod[]) {
         this.path = path;
-        this.method = method ?? [new Method()] as Method[];
+        this.method = method ?? [new SwaggerMethod()] as SwaggerMethod[];
     }
 }
 
-export class Method {
-    name?:        MethodName;
+export class SwaggerMethod {
+    name?:        SwaggerMethodName;
     summary?:     null | string;
     operationId?: string;
 
-    constructor(name?: MethodName, summary?: string, operationId?: string) {
+    constructor(name?: SwaggerMethodName, summary?: string, operationId?: string) {
         this.name = name;
         this.summary = summary;
         this.operationId = operationId;
     }
 }
 
-export enum MethodName {
+export enum SwaggerMethodName {
     Get = "GET",
     Post = "POST",
     Put = "PUT",
