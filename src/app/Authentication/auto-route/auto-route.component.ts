@@ -88,15 +88,20 @@ export class AutoRouteComponent implements OnInit {
     dialog.afterClosed().subscribe({
       next: res => {
         let newRoutes: Route[] = res;
-        newRoutes.forEach(e => {
-          console.log(e);
-          let index = this.tempRoutes.findIndex(r => r.path === e.path && r.method === e.method);
-          if(index >= 0)
-            this.tempRoutes[index] = e;
-          else
-            this.tempRoutes.push(e);
+        swaggerMethods.forEach(method => {
+          let index1 = newRoutes.findIndex(e => e ? e.path === path && e.method === method : false);
+          let index2 = this.tempRoutes.findIndex(e => e.path === path && e.method === method);
+          if(index1 >= 0) {
+            if(index2 >= 0)
+              this.tempRoutes[index2] = newRoutes[index1];
+            else
+              this.tempRoutes.push(newRoutes[index1]);
+          }
+          else {
+            if(index2 >= 0)
+              this.tempRoutes.splice(index2, 1);
+          }
         })
-        console.log(this.tempRoutes);
       }
     })
   }
