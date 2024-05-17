@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Jwt, OpenIdRequest, Route, User, UserRole } from '../model/Authenticator.model';
+import { Jwt, OpenIdRequest, Route, Swaggers, User, UserRole } from '../model/Authenticator.model';
 import { SettingService } from './Setting.service';
 import { Observable, first, interval } from 'rxjs';
 import { UsernameExistResponse } from '../model/Response.model';
@@ -117,6 +117,10 @@ export class AuthenticatorService {
   }
 
   //special endpoint
+  getSwagger(): Observable<Swaggers[]> {
+    return this.httpClient.get<Swaggers[]>(`${this.settingService.getGatewayUrl()}/swaggers`);
+  }
+
   getCurrentLoginUser(): Observable<User> {
     return this.httpClient.get<User>(`${this.settingService.getGatewayUrl()}/user`);
   }

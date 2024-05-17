@@ -46,17 +46,37 @@ export class RoutePanelComponent implements OnInit {
   @Input()
   userRoles!: UserRole[];
 
+  @Input()
+  displayPath = true;
+
+  @Input()
+  displayWildCard = true;
+
+  @Input()
+  displayFunctionalButton = true;
+
+  @Input()
+  disableMethodInput = false;
+
+  @Output()
+  onValueChange: EventEmitter<Route> = new EventEmitter();
+
   @Output()
   editEvent: EventEmitter<Route> = new EventEmitter();
 
   @Output()
   deleteEvent: EventEmitter<Route> = new EventEmitter();
 
+  @Output()
+  onDeleteMethod: EventEmitter<string> = new EventEmitter();
+
   wildCard: string = '';
 
   constructor(private authenticatorService: AuthenticatorService, private matDialog: MatDialog) { }
 
   ngOnInit() {
+    if(!this.route.roles)
+      this.route.roles = [];
     this.reset();
   }
 
@@ -67,11 +87,17 @@ export class RoutePanelComponent implements OnInit {
   }
 
   isChange(): boolean {
-    return JSON.stringify(this.route) !== JSON.stringify(this.routeCopy);
+    let isChange = JSON.stringify(this.route) !== JSON.stringify(this.routeCopy);
+
+    if(isChange)
+      this.onValueChange.emit(this.routeCopy);
+
+    return isChange;
   }
 
   reset(): void {
     this.routeCopy = structuredClone(this.route);
+    this.onValueChange.emit(this.routeCopy);
   }
   
   save(): void {
@@ -102,5 +128,19 @@ export class RoutePanelComponent implements OnInit {
 
   addWildCard() {
     this.routeCopy.path += this.wildCard;
+  }
+
+  getRemainingRole() {
+    let roles: UserRole[] = [];
+    this.userRoles.forEach(role => {
+      if(!this.route.roles?.some(e => e.id === role.id))
+        roles.push(role);
+    })
+
+    return roles;
+  }
+
+  isUserRoleExist(userRole: UserRole) {
+    return this.routeCopy.roles?.some(r => r.id === userRole.id);
   }
 }

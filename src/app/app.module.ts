@@ -22,6 +22,7 @@ import { VenkinsHomeComponent } from './Venkins/venkins-home/venkins-home.compon
 import { ConfigMapComponent } from './Venkins/config-map/config-map.component';
 import { OpenIdComponent } from './openId/openId.component';
 import { AutoRouteComponent } from './Authentication/auto-route/auto-route.component';
+import { RouteDialog } from './Authentication/auto-route/route-dialog/route-dialog.component';
 
 export const defaultTextColor = 'white';
 
@@ -42,7 +43,8 @@ export const defaultTextColor = 'white';
     VenkinsHomeComponent,
     ConfigMapComponent,
     OpenIdComponent,
-    AutoRouteComponent
+    AutoRouteComponent,
+    RouteDialog
   ],
   imports: [
     NgEssentialModule,

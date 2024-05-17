@@ -22,7 +22,7 @@
       <li>
         <mat-form-field style="width: 100%;" appearance="fill">
           <mat-label>Method</mat-label>
-          <mat-select [(ngModel)]="routeCopy.method" required>
+          <mat-select [(ngModel)]="routeCopy.method" required [disabled]="disableMethodInput">
             <mat-option value="GET">GET</mat-option>
             <mat-option value="POST">POST</mat-option>
             <mat-option value="PUT">PUT</mat-option>
@@ -31,7 +31,7 @@
           </mat-select>
         </mat-form-field>
       </li>
-      <li>
+      <li *ngIf="displayPath">
         <app-mat-form-field-input
           [value]="routeCopy.path!.toString()"
           (valueOutput)="routeCopy.path = $event.toString()"
@@ -40,7 +40,7 @@
           styleWidth="100%"
         ></app-mat-form-field-input>
       </li>
-      <li>
+      <li *ngIf="displayWildCard">
         <app-mat-form-field-input-option
         (valueOutput)="wildCard = $event"
         label="Wild Card ^"
@@ -68,7 +68,7 @@
           <mat-label>Role</mat-label>
           <mat-select [(ngModel)]="role.id" required>
             <div *ngFor="let r of userRoles">
-              <mat-option [value]="r.id">{{r.name}}</mat-option>
+              <mat-option [value]="r.id" [disabled]="isUserRoleExist(r)">{{r.name}}</mat-option>
             </div>
             <mat-option (click)="removeRole(i)">Remove</mat-option>
           </mat-select>
@@ -77,12 +77,18 @@
       <li *ngIf="routeCopy.roles!.length < userRoles.length">
         <button mat-raised-button color="accent" (click)="addNewRole(routeCopy.roles!)">New Role</button>
       </li>
-      <hr>
-      <li>
-        <button mat-raised-button color="primary" style="width: 50%;" [disabled]="!isChange()" (click)="save()">Save</button>
-        <button mat-raised-button color="warn" style="width: 50%;" [disabled]="!isChange()" (click)="reset()">Reset</button>
-      </li>
-      <hr>
-      <li><button mat-raised-button color="warn" (click)="remove()">Delete</button></li>
+      <ng-container *ngIf="displayFunctionalButton">
+        <hr>
+        <li>
+          <button mat-raised-button color="primary" style="width: 50%;" [disabled]="!isChange()" (click)="save()">Save</button>
+          <button mat-raised-button color="warn" style="width: 50%;" [disabled]="!isChange()" (click)="reset()">Reset</button>
+        </li>
+        <hr>
+        <li><button mat-raised-button color="warn" (click)="remove()" style="width: 100%;">Delete</button></li>
+      </ng-container>
+      <ng-container *ngIf="!displayFunctionalButton">
+        <hr>
+        <button mat-raised-button color="warn" (click)="remove()" style="width: 100%;">Delete</button>
+      </ng-container>
     </ul>
 </mat-expansion-panel>

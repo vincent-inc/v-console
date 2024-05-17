@@ -1,4 +1,4 @@
-import { MatColumn, Time } from "./Mat.model";
+import { MatColumn, MatTableHide, MatTableSetting, Time } from "./Mat.model";
 
 export interface Jwt {
     jwt?: string;
@@ -86,4 +86,43 @@ export interface OpenIdRequest {
     code: string;
     state: string;
     redirectUri: string;
+}
+
+export interface Swaggers {
+    serviceName: string;
+    prefix:      string;
+    paths:       Path[];
+}
+
+export class Path {
+    @MatTableSetting("Absolute Path (with Regrex)")
+    path?:   string;
+
+    @MatTableHide(true)
+    method?: Method[];
+
+    constructor(path?: string, method?: Method[]) {
+        this.path = path;
+        this.method = method ?? [new Method()] as Method[];
+    }
+}
+
+export class Method {
+    name?:        MethodName;
+    summary?:     null | string;
+    operationId?: string;
+
+    constructor(name?: MethodName, summary?: string, operationId?: string) {
+        this.name = name;
+        this.summary = summary;
+        this.operationId = operationId;
+    }
+}
+
+export enum MethodName {
+    Get = "GET",
+    Post = "POST",
+    Put = "PUT",
+    Patch = "PATCH",
+    Delete = "DELETE",
 }
