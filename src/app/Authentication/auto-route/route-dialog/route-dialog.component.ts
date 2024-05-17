@@ -2,6 +2,7 @@ import { AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit } fro
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ObjectDialog, ObjectDialogData } from 'src/app/shared/dialog/object-dialog/object-dialog.component';
 import { SwaggerMethodName, Route, UserRole, SwaggerPath } from 'src/app/shared/model/Authenticator.model';
+import { MatOption } from 'src/app/shared/model/Mat.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
 
 export interface RouteDialogData {
@@ -20,12 +21,13 @@ export interface RouteDialogData {
 export class RouteDialog implements OnInit, AfterContentChecked {
 
   routeDialogData!: RouteDialogData;
+  defaultRole!: UserRole;
+  defaultSecure: boolean = true;
+  userRoleOptions: MatOption[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: {routeDialogData: RouteDialogData},
-    private dialogRef: MatDialogRef<ObjectDialog>,
     private cd: ChangeDetectorRef,
-    private authenticatorService: AuthenticatorService
   ) {}
 
   ngAfterContentChecked(): void {
@@ -34,6 +36,26 @@ export class RouteDialog implements OnInit, AfterContentChecked {
 
   ngOnInit(): void {
     this.routeDialogData = this.data.routeDialogData;
+    let userRoleIndex = this.routeDialogData.userRoles.findIndex(e => e.name?.toLowerCase() === 'normal' || e.level === 1);
+    if(userRoleIndex < 0)
+      userRoleIndex = 0;
+    this.defaultRole = this.routeDialogData.userRoles[userRoleIndex];
+
+    this.routeDialogData.userRoles.forEach(e => {
+      this.userRoleOptions.push({
+        value: e.id,
+        valueLabel: e.name!
+      })
+    })
+  }
+
+  setDefaultRole(id: number) {
+    this.routeDialogData.userRoles.forEach(e => {
+      if(e.id === id) {
+        this.defaultRole = e;
+        return;
+      }
+    })
   }
 
   trackByIndex(index: number, obj: any): any {
@@ -49,7 +71,6 @@ export class RouteDialog implements OnInit, AfterContentChecked {
   }
 
   pushNewRoute(method: string) {
-    let foundNormalRole = this.routeDialogData.userRoles.findIndex(e => e.name?.toLowerCase() === 'normal' || e.level === 1);
     let index = this.routeDialogData.swaggerMethods.findIndex(e => e === method);
     
     if (!this.routeDialogData.selectedRoutes.some(r => r.method === method)) {
@@ -57,8 +78,8 @@ export class RouteDialog implements OnInit, AfterContentChecked {
         id: 0,
         method: method,
         path: this.routeDialogData.absolutePath,
-        secure: true,
-        roles: foundNormalRole >= 0 ? [this.routeDialogData.userRoles[foundNormalRole]] : undefined
+        secure: this.defaultSecure,
+        roles: [this.defaultRole]
       };
     }
   }

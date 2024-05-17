@@ -5,6 +5,7 @@ import { SwaggerMethodName, SwaggerPath, Route, Swaggers, UserRole } from 'src/a
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
 import { UtilsService } from 'src/app/shared/service/Utils.service';
 import { RouteDialog, RouteDialogData } from './route-dialog/route-dialog.component';
+import { InputDialog } from 'src/app/shared/dialog/input-dialog/input-dialog.component';
 
 @Component({
   selector: 'app-auto-route',
@@ -20,7 +21,7 @@ export class AutoRouteComponent implements OnInit {
   searchText: string = '';
   blankPath: SwaggerPath = new SwaggerPath();
 
-  constructor(private authenticatorService: AuthenticatorService, private matDialog: MatDialog) { }
+  constructor(private authenticatorService: AuthenticatorService, private matDialog: MatDialog, private utils: UtilsService) { }
 
   ngOnInit() {
     this.authenticatorService.getSwagger().pipe(first()).subscribe({
@@ -36,11 +37,15 @@ export class AutoRouteComponent implements OnInit {
       }
     });
 
+    this.updateUserRoles();
+  }
+
+  private updateUserRoles() {
     this.authenticatorService.getUserRoles().pipe(first()).subscribe({
       next: res => {
         this.userRoles = res;
       }
-    })
+    });
   }
 
   processPath(paths: SwaggerPath[]): SwaggerPath[] {
@@ -117,12 +122,40 @@ export class AutoRouteComponent implements OnInit {
     return UtilsService.isNotEqual(this.routes, this.tempRoutes);
   }
 
+  exportRoute() {
+    let dialog = this.matDialog.open(InputDialog, {
+      width: '100%',
+      data: { title: 'Save as', label: 'File Name', defaultValue: 'RouteList', input: 'Route'} 
+    })
+    
+    dialog.afterClosed().pipe(first()).subscribe(
+      res => {
+        if (res)
+          this.utils.saveFile(res + '.json', "application/json", JSON.stringify(this.tempRoutes));
+      }
+    );
+  }
+
+  async importRoutes() {
+    let file = await this.utils.uploadFile('application/json');
+    if(file.type === 'application/json') {
+      let newRoutes: Route[] = JSON.parse(file.value);
+      this.tempRoutes = structuredClone(newRoutes);
+    }
+  }
+
   revert() {
     this.tempRoutes = structuredClone(this.routes);
   }
 
   save() {
-
+    this.authenticatorService.syncRoutes(this.tempRoutes).pipe(first()).subscribe({
+      next: res => {
+        this.updateUserRoles();
+        this.routes = res;
+        this.tempRoutes = structuredClone(res);
+      }
+    });
   }
 }
 

@@ -224,6 +224,10 @@ export class AuthenticatorService {
     return this.httpClient.put<Route>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes/${route.id}`, route);
   }
 
+  public syncRoutes(routes: Route[]): Observable<Route[]> {
+    return this.httpClient.put<Route[]>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes/sync`, routes);
+  }
+
   public patchRoute(route: Route): Observable<Route> {
     return this.httpClient.patch<Route>(`${this.settingService.getGatewayUrl()}/${this.prefix}/routes/${route.id}`, route);
   }

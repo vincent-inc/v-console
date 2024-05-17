@@ -1,6 +1,23 @@
 <h1 mat-dialog-title>{{routeDialogData.absolutePath}}</h1>
 <div mat-dialog-content>
-  <button mat-raised-button color="primary" *ngIf="isMissingAnyMethod()" (click)="pushAllMissingRoute()">Populate all missing route</button>
+  <ng-container *ngIf="isMissingAnyMethod()">
+    <button mat-raised-button color="primary"  (click)="pushAllMissingRoute()">Populate all missing route</button>
+    <br>
+    <app-mat-form-field-input-option
+    label="Default user role"
+    [options]="userRoleOptions"
+    [value]="defaultRole.id"
+    (valueOutput)="setDefaultRole($event)"
+    noneLabel=""
+    styleWidth="50%"
+    ></app-mat-form-field-input-option>
+    <app-mat-form-field-input-dynamic
+    label="Default Secure"
+    [value]="defaultSecure" (valueOutput)="defaultSecure = $event"
+    styleWidth="50%"
+    ></app-mat-form-field-input-dynamic>
+  </ng-container>
+
   <ng-container *ngIf="isMissingAnyMethod()">
     <hr>
     <h2>Available Method</h2>
