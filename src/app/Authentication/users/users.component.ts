@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { first } from 'rxjs';
+import { ObjectDialog, ObjectDialogData } from 'src/app/shared/dialog/object-dialog/object-dialog.component';
 import { UserDialog } from 'src/app/shared/dialog/user-dialog/user-dialog.component';
 import UserRow, { User, UserRole } from 'src/app/shared/model/Authenticator.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
@@ -30,10 +31,10 @@ export class UsersComponent implements OnInit  {
   {
     this.authenticatorService.getUsers().pipe(first()).subscribe(
       res => {
-      this.userRows = [];
-      res.forEach((u) => {
-        this.userRows.push(this.convertUserData(u));
-      })
+        this.userRows = [];
+        res.forEach((u) => {
+          this.userRows.push(this.convertUserData(u));
+        })
     });
   }
 
@@ -43,18 +44,11 @@ export class UsersComponent implements OnInit  {
       id:                    user.id,
       username:              user.username!,
       enable:                user.enable,
-      email:                 this.getEmail(user)!,
+      email:                 user.email ?? '',
       userRoles:             this.getRole(user),
     }
 
     return userTable;
-  }
-
-  private getEmail(user: User) {
-    if(user.userProfile)
-      return user.userProfile.email;
-    else
-      return "";
   }
 
   private getRole(user: User)
@@ -83,7 +77,7 @@ export class UsersComponent implements OnInit  {
   
   editUser(row: UserRow)
   {
-    let dialog = this.matDialog.open(UserDialog, {data: {userId: row.id}});
+    let dialog = this.matDialog.open(UserDialog, {data: {userId: row.id}, width: '100%'},);
 
     dialog.afterClosed().pipe(first()).subscribe(
       res => {
@@ -91,6 +85,22 @@ export class UsersComponent implements OnInit  {
           this.updateUser();
       }
     );
+
+    // let objectDialogData: ObjectDialogData<User> = {
+    //   id: row.id,
+    //   title: 'Edit User',
+    //   service: this.authenticatorService,
+    //   getFn: (service, id) => row,
+    //   modifyFn: (service, value) => {
+    //     service.patchUser(value).pipe(first()).subscribe(
+    //       res => {
+    //         this.updateUser();
+    //       }
+    //     )
+    //   }
+    // }
+
+    // let dialog = this.matDialog.open(ObjectDialog, {data: {object: row}});
   }
 
 }

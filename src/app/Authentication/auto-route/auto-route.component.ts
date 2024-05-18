@@ -15,8 +15,8 @@ import { InputDialog } from 'src/app/shared/dialog/input-dialog/input-dialog.com
 export class AutoRouteComponent implements OnInit {
 
   swaggers!: Swaggers[];
-  routes!: Route[];
-  tempRoutes!: Route[];
+  routes!: Route[]; //original
+  tempRoutes!: Route[]; //to be change
   userRoles: UserRole[] = [];
   searchText: string = '';
   blankPath: SwaggerPath = new SwaggerPath();
