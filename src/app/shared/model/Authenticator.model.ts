@@ -82,19 +82,17 @@ export class UserProfile {
     firstName?: string;
     lastName?: string;
     phoneNumber?: string;
-    email?: string;
     address?: string;
     city?: string;
     state?: string;
     zip?: string;
 
-    constructor(id?: number, alias?: string, firstName?: string, lastName?: string, phoneNumber?: string, email?: string, address?: string, city?: string, state?: string, zip?: string) {
+    constructor(id?: number, alias?: string, firstName?: string, lastName?: string, phoneNumber?: string, address?: string, city?: string, state?: string, zip?: string) {
         this.id = id ?? 0;
         this.alias = alias ?? '';
         this.firstName = firstName ?? '';
         this.lastName = lastName ?? '';
         this.phoneNumber = phoneNumber ?? '';
-        this.email = email ?? '';
         this.address = address ?? '';
         this.city = city ?? '';
         this.state = state ?? '';
