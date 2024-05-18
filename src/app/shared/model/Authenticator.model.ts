@@ -77,6 +77,7 @@ export class UserAPI {
 }
 
 export class UserProfile {
+    @MatInputDisable(true)
     id?: number;
     alias?: string;
     firstName?: string;

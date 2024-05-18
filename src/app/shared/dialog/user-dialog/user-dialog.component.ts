@@ -108,16 +108,15 @@ export class UserDialog implements OnInit, AfterViewChecked {
       );
     }
     else {
-      console.log(this.user);
-      // this.authenticatorService.patchUser(this.user).pipe(first()).subscribe(
-      //   res => {
-      //     this.dialogRef.close('save')
-      //   },
-      //   err => {
-      //     window.alert('Technical difficulty, please try again latter');
-      //     this.dialogRef.close('');
-      //   }
-      // );
+      this.authenticatorService.patchUser(this.user).pipe(first()).subscribe(
+        res => {
+          this.dialogRef.close('save')
+        },
+        err => {
+          window.alert('Technical difficulty, please try again latter');
+          this.dialogRef.close('');
+        }
+      );
     }
   }
 
