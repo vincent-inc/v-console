@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { delay, first, of } from 'rxjs';
+import { UtilsService } from '../shared/service/Utils.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -11,5 +14,4 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

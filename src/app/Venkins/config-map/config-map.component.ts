@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs';
 import { FixChangeDetection } from 'src/app/shared/directive/FixChangeDetection';
 import { ConfigModel, MatConfigModel } from 'src/app/shared/model/Venkins.model';
+import { UtilsService } from 'src/app/shared/service/Utils.service';
 import { VenkinsService } from 'src/app/shared/service/Venkins.service';
 
 @Component({
@@ -33,7 +34,7 @@ export class ConfigMapComponent extends FixChangeDetection implements OnInit {
   }
 
   init() {
-    this.venkinsService.getConfigModels().pipe(first()).subscribe(
+    this.venkinsService.getConfigModels().pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe(
       res => {  
         this.configModels = res;
         this.populateMatConfigModel();

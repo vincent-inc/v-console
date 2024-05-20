@@ -8,6 +8,7 @@ import { ObjectDialog, ObjectDialogData } from 'src/app/shared/dialog/object-dia
 import { UserDialog } from 'src/app/shared/dialog/user-dialog/user-dialog.component';
 import UserRow, { User, UserRole } from 'src/app/shared/model/Authenticator.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
+import { UtilsService } from 'src/app/shared/service/Utils.service';
 
 @Component({
   selector: 'app-users',
@@ -29,7 +30,7 @@ export class UsersComponent implements OnInit  {
 
   updateUser()
   {
-    this.authenticatorService.getUsers().pipe(first()).subscribe(
+    this.authenticatorService.getUsers().pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe(
       res => {
         this.userRows = [];
         res.forEach((u) => {

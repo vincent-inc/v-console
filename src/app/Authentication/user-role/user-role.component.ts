@@ -4,6 +4,7 @@ import { first } from 'rxjs';
 import { ConfirmDialog } from 'src/app/shared/dialog/confirm-dialog/confirm-dialog.component';
 import { UserRole } from 'src/app/shared/model/Authenticator.model';
 import { AuthenticatorService } from 'src/app/shared/service/Authenticator.service';
+import { UtilsService } from 'src/app/shared/service/Utils.service';
 
 @Component({
   selector: 'app-user-role',
@@ -27,7 +28,7 @@ export class UserRoleComponent implements OnInit {
   }
 
   init(): void {
-    this.authenticatorService.getUserRoles().pipe(first()).subscribe(
+    this.authenticatorService.getUserRoles().pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe(
       res => {
         this.userRoles = res;
         this.userRolesCopy = structuredClone(res);

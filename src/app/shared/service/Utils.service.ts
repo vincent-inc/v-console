@@ -1,6 +1,8 @@
 import { Injectable, Type, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, first } from 'rxjs';
+import { Observable, finalize, first, of, pipe, switchMap, tap } from 'rxjs';
+import { LoadingDialog } from '../dialog/loading-dialog/loading-dialog.component';
 
 export interface File {
   name: string,
@@ -159,5 +161,26 @@ export class UtilsService {
       enumerable: true,
       configurable: true
     });
+  }
+
+  static waitLoadingDialog<T>(matDialog: MatDialog) {
+    let dialog = matDialog.open(LoadingDialog, {
+      disableClose: true
+    });
+    
+    return pipe(
+      UtilsService.startWithTap<T>(() => {
+        dialog.afterClosed().subscribe({
+          next: () => {}
+        })
+      }),
+      finalize<T>(() => dialog.close()),
+      first<T>()
+    );
+  }
+
+  static startWithTap<T>(callback: () => void) {
+    return (source: Observable<T>) =>
+      of({}).pipe(tap(callback), switchMap((o) => source));
   }
 }

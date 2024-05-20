@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { config, first } from 'rxjs';
 import { ConfigModel, JobRequest } from 'src/app/shared/model/Venkins.model';
 import { UtilsService } from 'src/app/shared/service/Utils.service';
@@ -17,7 +18,8 @@ export class VenkinsHomeComponent implements OnInit {
   jobRequests: any[] = [];
 
   constructor(
-    private venkinsService: VenkinsService
+    private venkinsService: VenkinsService,
+    private matDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -25,7 +27,7 @@ export class VenkinsHomeComponent implements OnInit {
   }
 
   init() {
-    this.venkinsService.getConfigModels().pipe(first()).subscribe(
+    this.venkinsService.getConfigModels().pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe(
       res => {  
         this.configModels = res;
       }

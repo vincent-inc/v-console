@@ -24,13 +24,13 @@ export class AutoRouteComponent implements OnInit {
   constructor(private authenticatorService: AuthenticatorService, private matDialog: MatDialog, private utils: UtilsService) { }
 
   ngOnInit() {
-    this.authenticatorService.getSwagger().pipe(first()).subscribe({
+    this.authenticatorService.getSwagger().pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe({
       next: res => {
         this.swaggers = res;
       }
     });
 
-    this.authenticatorService.getRoutes().pipe(first()).subscribe({
+    this.authenticatorService.getRoutes().pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe({
       next: res => {
         this.routes = res;
         this.tempRoutes = structuredClone(res);
@@ -41,7 +41,7 @@ export class AutoRouteComponent implements OnInit {
   }
 
   private updateUserRoles() {
-    this.authenticatorService.getUserRoles().pipe(first()).subscribe({
+    this.authenticatorService.getUserRoles().pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe({
       next: res => {
         this.userRoles = res;
       }
@@ -149,7 +149,7 @@ export class AutoRouteComponent implements OnInit {
   }
 
   save() {
-    this.authenticatorService.syncRoutes(this.tempRoutes).pipe(first()).subscribe({
+    this.authenticatorService.syncRoutes(this.tempRoutes).pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe({
       next: res => {
         this.updateUserRoles();
         this.routes = res;
