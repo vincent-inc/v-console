@@ -32,8 +32,8 @@ export class AutoRouteComponent implements OnInit {
 
     this.authenticatorService.getRoutes().pipe(UtilsService.waitLoadingDialog(this.matDialog)).subscribe({
       next: res => {
-        this.routes = res;
-        this.tempRoutes = structuredClone(res);
+        this.routes = res ?? [];
+        this.tempRoutes = structuredClone(this.routes);
       }
     });
 
@@ -68,6 +68,8 @@ export class AutoRouteComponent implements OnInit {
   }
 
   editGlobalRule(prefix: string) {
+    console.log(this.tempRoutes);
+    console.log(this.routes);
     if(prefix.charAt(0) !== '/')
       prefix = `/${prefix}`;
 
